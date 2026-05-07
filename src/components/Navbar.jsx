@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Plane, Search, User, Globe } from 'lucide-react';
+import { 
+  Home, 
+  Compass, 
+  Zap, 
+  Package, 
+  Utensils, 
+  BookOpen, 
+  Users, 
+  Globe, 
+  Sun, 
+  Moon, 
+  UserCircle,
+  Menu,
+  X
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,51 +31,56 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Destinations', href: '#' },
-    { name: 'Tours', href: '#' },
-    { name: 'About Us', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: 'Home', icon: <Home size={18} />, href: '#' },
+    { name: 'Explore', icon: <Compass size={18} />, href: '#' },
+    { name: 'AI Planner', icon: <Zap size={18} />, href: '#' },
+    { name: 'Packages', icon: <Package size={18} />, href: '#' },
+    { name: 'Stay & Food', icon: <Utensils size={18} />, href: '#' },
+    { name: 'Stories', icon: <BookOpen size={18} />, href: '#' },
+    { name: 'Community', icon: <Users size={18} />, href: '#' },
   ];
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container glass">
         <div className="nav-content">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="logo"
-          >
-            <Plane className="logo-icon" size={28} />
-            <span className="logo-text">Vindy<span>Tour</span></span>
-          </motion.div>
+          <div className="logo">
+            <div className="logo-circle">
+              <Compass size={20} />
+            </div>
+            <span className="logo-text">Wanderlust</span>
+          </div>
 
           {/* Desktop Nav */}
           <div className="desktop-links">
-            {navLinks.map((link, index) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="nav-link"
-              >
-                {link.name}
-              </motion.a>
+            {navLinks.map((link) => (
+              <a key={link.name} href={link.href} className="nav-link">
+                {link.icon}
+                <span>{link.name}</span>
+              </a>
             ))}
           </div>
 
           <div className="nav-actions">
-            <button className="icon-btn search-btn">
-              <Search size={20} />
+            <div className="nav-meta">
+              <button className="meta-btn">
+                <Globe size={18} />
+                <span>EN</span>
+              </button>
+              <button className="meta-btn">
+                <span>$ USD</span>
+              </button>
+            </div>
+
+            <button className="theme-toggle" onClick={() => setIsDark(!isDark)}>
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <button className="icon-btn user-btn">
-              <User size={20} />
+
+            <button className="my-trips-btn">
+              <UserCircle size={20} />
+              <span>My Trips</span>
             </button>
-            <button className="book-btn">
-              Book Now
-            </button>
+
             <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -72,18 +92,19 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             className="mobile-menu glass"
           >
             {navLinks.map((link) => (
               <a key={link.name} href={link.href} className="mobile-link" onClick={() => setIsOpen(false)}>
-                {link.name}
+                {link.icon}
+                <span>{link.name}</span>
               </a>
             ))}
-            <div className="mobile-actions">
-              <button className="mobile-book-btn">Book Your Trip</button>
+            <div className="mobile-footer">
+              <button className="mobile-action-btn">My Trips</button>
             </div>
           </motion.div>
         )}
