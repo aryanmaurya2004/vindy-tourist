@@ -13,7 +13,8 @@ import {
   Heart,
   Sparkles,
   Mountain,
-  Users
+  Users,
+  Star
 } from 'lucide-react';
 import './App.css';
 
@@ -196,21 +197,37 @@ function App() {
               {hotDestinations.map((dest) => (
                 <motion.div 
                   key={dest.id}
-                  whileHover={{ y: -5 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
                   className="dest-card"
                 >
-                  <div className="dest-image">
-                    <img src={dest.image} alt={dest.name} />
-                    {dest.trending && <span className="trending-badge">Trending</span>}
-                  </div>
-                  <div className="dest-info">
-                    <div className="dest-rating">
-                      <Sparkles size={14} className="star-icon" />
-                      <span>{dest.rating}</span>
+                  <div className="dest-image-wrapper">
+                    <img src={dest.image} alt={dest.name} className="dest-img" />
+                    <div className="dest-overlay">
+                      {dest.trending && <span className="trending-tag">Trending</span>}
+                      <button className="wishlist-btn">
+                        <Heart size={18} />
+                      </button>
                     </div>
-                    <h3>{dest.name}</h3>
-                    <p className="dest-country">{dest.country}</p>
-                    <p className="dest-price">{dest.price}</p>
+                  </div>
+                  <div className="dest-details">
+                    <div className="dest-header">
+                      <h3>{dest.name}</h3>
+                      <div className="dest-rating">
+                        <Star size={14} fill="currentColor" />
+                        <span>{dest.rating}</span>
+                      </div>
+                    </div>
+                    <p className="dest-location">
+                      <MapPin size={12} />
+                      {dest.country}
+                    </p>
+                    <div className="dest-footer">
+                      <span className="price-tag">{dest.price}</span>
+                      <button className="book-small-btn">Book Now</button>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -237,20 +254,36 @@ function App() {
               {[hotDestinations[2], hotDestinations[0]].map((dest) => (
                 <motion.div 
                   key={`budget-${dest.id}`}
-                  whileHover={{ y: -5 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
                   className="dest-card"
                 >
-                  <div className="dest-image">
-                    <img src={dest.image} alt={dest.name} />
-                  </div>
-                  <div className="dest-info">
-                    <div className="dest-rating">
-                      <Sparkles size={14} className="star-icon" />
-                      <span>{dest.rating}</span>
+                  <div className="dest-image-wrapper">
+                    <img src={dest.image} alt={dest.name} className="dest-img" />
+                    <div className="dest-overlay">
+                      <button className="wishlist-btn">
+                        <Heart size={18} />
+                      </button>
                     </div>
-                    <h3>{dest.name}</h3>
-                    <p className="dest-country">{dest.country}</p>
-                    <p className="dest-price">{dest.price}</p>
+                  </div>
+                  <div className="dest-details">
+                    <div className="dest-header">
+                      <h3>{dest.name}</h3>
+                      <div className="dest-rating">
+                        <Star size={14} fill="currentColor" />
+                        <span>{dest.rating}</span>
+                      </div>
+                    </div>
+                    <p className="dest-location">
+                      <MapPin size={12} />
+                      {dest.country}
+                    </p>
+                    <div className="dest-footer">
+                      <span className="price-tag">{dest.price}</span>
+                      <button className="book-small-btn">Book Now</button>
+                    </div>
                   </div>
                 </motion.div>
               ))}
