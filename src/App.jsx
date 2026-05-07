@@ -12,7 +12,8 @@ import {
   Music,
   Heart,
   Sparkles,
-  Mountain
+  Mountain,
+  Users
 } from 'lucide-react';
 import './App.css';
 
