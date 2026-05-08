@@ -415,6 +415,15 @@ function App() {
                   </div>
                   <div className="package-details">
                     <h3>{pkg.title}</h3>
+                    <p>{pkg.description}</p>
+                    <div className="package-footer">
+                      <span className="package-duration">
+                        <Compass size={14} />
+                        {pkg.duration}
+                      </span>
+                      <button className="book-small-btn">Explore</button>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
