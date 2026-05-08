@@ -14,7 +14,16 @@ import {
   Sparkles,
   Mountain,
   Users,
-  Star
+  Star,
+  Play,
+  Cloud,
+  Send,
+  Mail,
+  Phone,
+  Globe,
+  Instagram,
+  Twitter,
+  Youtube
 } from 'lucide-react';
 import './App.css';
 
@@ -112,6 +121,41 @@ function App() {
       duration: '10 days',
       image: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae',
       description: 'An epic 10-day road trip around Iceland\'s Ring Road. Glaciers, volcanoes, hot springs, and more...'
+    }
+  ];
+
+  const travelStories = [
+    {
+      id: 's1',
+      title: 'Sunrise at Uluwatu Temple - the most magical morning of my life',
+      user: 'Sarah Chen',
+      avatar: 'https://i.pravatar.cc/150?u=sarah',
+      image: 'https://images.unsplash.com/photo-1552053831-71594a27632d',
+      video: true
+    },
+    {
+      id: 's2',
+      title: 'Northern Lights finally appeared after 3 nights of waiting!',
+      user: 'Marco Rossi',
+      avatar: 'https://i.pravatar.cc/150?u=marco',
+      image: 'https://images.unsplash.com/photo-1531366930491-81559758f2d8',
+      video: true
+    },
+    {
+      id: 's3',
+      title: 'Desert night under a billion stars in Jaisalmer',
+      user: 'Priya Sharma',
+      avatar: 'https://i.pravatar.cc/150?u=priya',
+      image: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0',
+      video: true
+    },
+    {
+      id: 's4',
+      title: 'That iconic Oia sunset - photos don\'t do it justice',
+      user: 'Emma Wilson',
+      avatar: 'https://i.pravatar.cc/150?u=emma',
+      image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077',
+      video: true
     }
   ];
 
@@ -428,8 +472,176 @@ function App() {
               ))}
             </div>
           </div>
+
+          <div className="section-spacer" style={{ height: '6rem' }}></div>
+
+          <div className="container">
+            <div className="section-top">
+              <div className="section-header-flex">
+                <div>
+                  <h2 className="section-title">Travel stories</h2>
+                  <p className="section-subtitle">Real experiences from real travelers</p>
+                </div>
+                <a href="#" className="view-all">Watch all <ArrowRight size={16} /></a>
+              </div>
+            </div>
+
+            <div className="stories-grid">
+              {travelStories.map((story) => (
+                <motion.div
+                  key={story.id}
+                  whileHover={{ y: -10 }}
+                  className="story-card"
+                >
+                  <div className="story-image-wrapper">
+                    <img src={story.image} alt={story.title} className="story-img" />
+                    <div className="story-overlay">
+                      <div className="play-btn-wrapper">
+                        <Play size={20} fill="white" />
+                      </div>
+                      <div className="story-content">
+                        <p className="story-title">{story.title}</p>
+                        <div className="story-user">
+                          <img src={story.avatar} alt={story.user} className="user-avatar" />
+                          <span>{story.user}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="section-spacer" style={{ height: '6rem' }}></div>
+
+          {/* Weather Section */}
+          <div className="container">
+            <div className="weather-section">
+              <div className="weather-card glass">
+                <div className="weather-header">
+                  <Cloud size={40} className="weather-main-icon" />
+                  <h2 className="section-title">Weather-based suggestions</h2>
+                  <p className="section-subtitle">Smart destination swaps based on weather conditions</p>
+                </div>
+
+                <div className="weather-content">
+                  <div className="weather-status">
+                    <Sparkles size={18} />
+                    <span>Hot Summer</span>
+                  </div>
+                  <div className="weather-suggestion">
+                    <span className="skip-text">Skip <span className="highlight-red">Rajasthan</span></span>
+                    <ArrowRight size={20} />
+                    <span className="go-text">Go to <span className="highlight-green">Iceland</span></span>
+                  </div>
+                  <p className="weather-desc">Cool glaciers and midnight sun</p>
+                </div>
+
+                <div className="weather-footer">
+                  <div className="pagination-dots">
+                    <span className="dot active"></span>
+                    <span className="dot"></span>
+                    <span className="dot"></span>
+                  </div>
+                  <button className="weather-btn">
+                    <Cloud size={18} />
+                    <span>Check Weather Suggestions</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="section-spacer" style={{ height: '6rem' }}></div>
+
+          {/* Explore Near You Section */}
+          <div className="container">
+            <div className="explore-near-section">
+              <div className="explore-header">
+                <Send size={40} className="explore-main-icon" />
+                <h2 className="section-title">Explore near you</h2>
+                <p className="section-subtitle">Discover amazing destinations close to your current location</p>
+              </div>
+              <button className="explore-near-btn">
+                <Send size={18} />
+                <span>Find Nearby Places</span>
+              </button>
+            </div>
+          </div>
         </section>
       </main>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-grid">
+            <div className="footer-brand">
+              <div className="footer-logo">
+                <Globe size={24} />
+                <span>Wanderlust</span>
+              </div>
+              <p className="footer-desc">
+                Don't just visit, experience the world. We craft journeys that transform the way you see the planet.
+              </p>
+              <div className="social-links">
+                <a href="#"><Instagram size={20} /></a>
+                <a href="#"><Twitter size={20} /></a>
+                <a href="#"><Youtube size={20} /></a>
+              </div>
+            </div>
+
+            <div className="footer-column">
+              <h3>Explore</h3>
+              <ul>
+                <li><a href="#">Destinations</a></li>
+                <li><a href="#">AI Trip Planner</a></li>
+                <li><a href="#">Tour Packages</a></li>
+                <li><a href="#">Stay & Food</a></li>
+                <li><a href="#">Travel Stories</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-column">
+              <h3>Support</h3>
+              <ul>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">Travel Guides</a></li>
+                <li><a href="#">Booking Policy</a></li>
+                <li><a href="#">Cancellation</a></li>
+                <li><a href="#">FAQs</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-column">
+              <h3>Contact</h3>
+              <ul className="contact-info">
+                <li>
+                  <Mail size={16} />
+                  <span>hello@wanderlust.travel</span>
+                </li>
+                <li>
+                  <Phone size={16} />
+                  <span>+91 8303319119</span>
+                </li>
+                <li>
+                  <MapPin size={16} />
+                  <span>123 Travel Lane, San Francisco, CA 94102</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="footer-bottom">
+            <p>&copy; 2026 Wanderlust. All rights reserved.</p>
+            <div className="footer-bottom-links">
+              <a href="#">Privacy</a>
+              <a href="#">Terms</a>
+              <a href="#">Cookies</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
