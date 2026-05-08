@@ -20,10 +20,7 @@ import {
   Send,
   Mail,
   Phone,
-  Globe,
-  Instagram,
-  Twitter,
-  Youtube
+  Globe
 } from 'lucide-react';
 import './App.css';
 
@@ -585,9 +582,9 @@ function App() {
                 Don't just visit, experience the world. We craft journeys that transform the way you see the planet.
               </p>
               <div className="social-links">
-                <a href="#"><Instagram size={20} /></a>
-                <a href="#"><Twitter size={20} /></a>
-                <a href="#"><Youtube size={20} /></a>
+                <a href="#"><Globe size={20} /></a>
+                <a href="#"><Globe size={20} /></a>
+                <a href="#"><Globe size={20} /></a>
               </div>
             </div>
 
