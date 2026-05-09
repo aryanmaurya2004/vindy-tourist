@@ -158,11 +158,17 @@ function App() {
 
   return (
     <div className="app">
+      <div className="main-bg-animation">
+        <div className="bg-orb orb-1"></div>
+        <div className="bg-orb orb-2"></div>
+        <div className="bg-orb orb-3"></div>
+        <div className="bg-orb orb-4"></div>
+      </div>
       <Navbar />
 
       <main>
         <section className="hero-section">
-          {/* Background Image is set in CSS */}
+          <div className="hero-bg-image"></div>
           <div className="hero-overlay"></div>
 
           <div className="hero-container">
