@@ -1,0 +1,129 @@
+.packages-page {
+  padding: 120px 1.5rem 60px;
+}
+
+.page-header {
+  margin-bottom: 3rem;
+}
+
+.page-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+}
+
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 2rem;
+}
+
+.package-card {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.package-img-wrapper {
+  position: relative;
+  height: 240px;
+}
+
+.package-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.package-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  backdrop-filter: blur(4px);
+}
+
+.package-info {
+  padding: 1.5rem;
+}
+
+.package-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pkg-duration, .pkg-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.package-info h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.pkg-location {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.package-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pkg-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.pkg-price .from {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.pkg-price .amount {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #3b82f6;
+}
+
+.pkg-btn {
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border-radius: 0.75rem;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+  .packages-grid {
+    grid-template-columns: 1fr;
+  }
+}

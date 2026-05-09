@@ -53,11 +53,11 @@ const Navbar = ({ setView, currentView }) => {
   const navLinks = [
     { name: 'Home', icon: <Home size={18} />, href: '#', view: 'home' },
     { name: 'Explore', icon: <Compass size={18} />, href: '#', view: 'explore' },
-    { name: 'AI Planner', icon: <Zap size={18} />, href: '#' },
-    { name: 'Packages', icon: <Package size={18} />, href: '#' },
-    { name: 'Stay & Food', icon: <Utensils size={18} />, href: '#' },
-    { name: 'Stories', icon: <BookOpen size={18} />, href: '#' },
-    { name: 'Community', icon: <Users size={18} />, href: '#' },
+    { name: 'AI Planner', icon: <Zap size={18} />, href: '#', view: 'planner' },
+    { name: 'Packages', icon: <Package size={18} />, href: '#', view: 'packages' },
+    { name: 'Stay & Food', icon: <Utensils size={18} />, href: '#', view: 'stayfood' },
+    { name: 'Stories', icon: <BookOpen size={18} />, href: '#', view: 'stories' },
+    { name: 'Community', icon: <Users size={18} />, href: '#', view: 'community' },
   ];
 
   return (

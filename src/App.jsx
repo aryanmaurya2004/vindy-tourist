@@ -1,6 +1,11 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Explore from './components/Explore';
+import AIPlanner from './components/AIPlanner';
+import Packages from './components/Packages';
+import StayFood from './components/StayFood';
+import Stories from './components/Stories';
+import Community from './components/Community';
 import { motion } from 'framer-motion';
 import {
   Search,
@@ -448,7 +453,7 @@ function App() {
                       <h2 className="section-title">Curated packages</h2>
                       <p className="section-subtitle">Handpicked trips for every kind of traveler</p>
                     </div>
-                    <a href="#" className="view-all">All packages <ArrowRight size={16} /></a>
+                    <a href="#" className="view-all" onClick={(e) => { e.preventDefault(); setCurrentView('packages'); }}>All packages <ArrowRight size={16} /></a>
                   </div>
                 </div>
 
@@ -490,7 +495,7 @@ function App() {
                       <h2 className="section-title">Travel stories</h2>
                       <p className="section-subtitle">Real experiences from real travelers</p>
                     </div>
-                    <a href="#" className="view-all">Watch all <ArrowRight size={16} /></a>
+                    <a href="#" className="view-all" onClick={(e) => { e.preventDefault(); setCurrentView('stories'); }}>Watch all <ArrowRight size={16} /></a>
                   </div>
                 </div>
 
@@ -579,8 +584,18 @@ function App() {
               </div>
             </section>
           </>
-        ) : (
+        ) : currentView === 'explore' ? (
           <Explore />
+        ) : currentView === 'planner' ? (
+          <AIPlanner />
+        ) : currentView === 'packages' ? (
+          <Packages />
+        ) : currentView === 'stayfood' ? (
+          <StayFood />
+        ) : currentView === 'stories' ? (
+          <Stories />
+        ) : (
+          <Community />
         )}
       </main>
 
