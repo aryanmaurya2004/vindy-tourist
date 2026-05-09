@@ -105,6 +105,56 @@
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.85rem;
   font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.meta-btn:hover {
+  color: white;
+}
+
+.meta-btn .rotate {
+  transform: rotate(180deg);
+}
+
+.meta-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  min-width: 140px;
+  background: rgba(15, 23, 42, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .theme-toggle {

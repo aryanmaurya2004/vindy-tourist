@@ -12,7 +12,8 @@ import {
   Moon, 
   UserCircle,
   Menu,
-  X
+  X,
+  ChevronDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
@@ -21,6 +22,10 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
+  const [showLang, setShowLang] = useState(false);
+  const [showCurrency, setShowCurrency] = useState(false);
+  const [language, setLanguage] = useState('EN');
+  const [currency, setCurrency] = useState('USD');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,13 +68,68 @@ const Navbar = () => {
 
           <div className="nav-actions">
             <div className="nav-meta">
-              <button className="meta-btn">
-                <Globe size={18} />
-                <span>EN</span>
-              </button>
-              <button className="meta-btn">
-                <span>$ USD</span>
-              </button>
+              {/* Language Dropdown */}
+              <div className="dropdown-container">
+                <button className="meta-btn" onClick={() => { setShowLang(!showLang); setShowCurrency(false); }}>
+                  <Globe size={18} />
+                  <span>{language}</span>
+                  <ChevronDown size={14} className={showLang ? 'rotate' : ''} />
+                </button>
+                <AnimatePresence>
+                  {showLang && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="dropdown-menu glass"
+                    >
+                      {['English', 'Hindi', 'Español'].map((lang) => (
+                        <button 
+                          key={lang} 
+                          className="dropdown-item"
+                          onClick={() => {
+                            setLanguage(lang === 'English' ? 'EN' : lang === 'Hindi' ? 'HI' : 'ES');
+                            setShowLang(false);
+                          }}
+                        >
+                          {lang}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Currency Dropdown */}
+              <div className="dropdown-container">
+                <button className="meta-btn" onClick={() => { setShowCurrency(!showCurrency); setShowLang(false); }}>
+                  <span>{currency === 'USD' ? '$' : currency === 'INR' ? '₹' : currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : '¥'} {currency}</span>
+                  <ChevronDown size={14} className={showCurrency ? 'rotate' : ''} />
+                </button>
+                <AnimatePresence>
+                  {showCurrency && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="dropdown-menu glass"
+                    >
+                      {['USD', 'INR', 'EUR', 'GBP', 'JPY'].map((cur) => (
+                        <button 
+                          key={cur} 
+                          className="dropdown-item"
+                          onClick={() => {
+                            setCurrency(cur);
+                            setShowCurrency(false);
+                          }}
+                        >
+                          {cur === 'USD' ? '$ USD' : cur === 'INR' ? '₹ INR' : cur === 'EUR' ? '€ EUR' : cur === 'GBP' ? '£ GBP' : '¥ JPY'}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             <button className="theme-toggle" onClick={() => setIsDark(!isDark)}>
@@ -104,6 +164,36 @@ const Navbar = () => {
               </a>
             ))}
             <div className="mobile-footer">
+              <div className="mobile-meta">
+                <div className="mobile-meta-section">
+                  <span className="mobile-meta-label">Language</span>
+                  <div className="mobile-meta-grid">
+                    {['EN', 'HI', 'ES'].map(lang => (
+                      <button 
+                        key={lang} 
+                        className={`mobile-meta-item ${language === lang ? 'active' : ''}`}
+                        onClick={() => setLanguage(lang)}
+                      >
+                        {lang}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="mobile-meta-section">
+                  <span className="mobile-meta-label">Currency</span>
+                  <div className="mobile-meta-grid">
+                    {['USD', 'INR', 'EUR', 'GBP', 'JPY'].map(cur => (
+                      <button 
+                        key={cur} 
+                        className={`mobile-meta-item ${currency === cur ? 'active' : ''}`}
+                        onClick={() => setCurrency(cur)}
+                      >
+                        {cur}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
               <button className="mobile-action-btn">My Trips</button>
             </div>
           </motion.div>
