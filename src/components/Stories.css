@@ -1,0 +1,141 @@
+.stories-page {
+  padding: 120px 1.5rem 60px;
+}
+
+.featured-story {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  border-radius: 2rem;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.featured-img {
+  position: relative;
+  height: 450px;
+}
+
+.featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+.featured-content {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.featured-label {
+  color: #3b82f6;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.featured-content h2 {
+  font-size: 2.5rem;
+  color: white;
+  line-height: 1.2;
+}
+
+.featured-content p {
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+.read-more {
+  align-self: flex-start;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  background: white;
+  color: black;
+  font-weight: 700;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.story-card {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.story-img-wrapper {
+  position: relative;
+  height: 250px;
+}
+
+.story-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-category {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.story-info {
+  padding: 1.5rem;
+}
+
+.story-info h3 {
+  font-size: 1.25rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.story-meta {
+  display: flex;
+  gap: 1.5rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+}
+
+.story-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 992px) {
+  .featured-story {
+    grid-template-columns: 1fr;
+  }
+  .featured-img {
+    height: 300px;
+  }
+}
