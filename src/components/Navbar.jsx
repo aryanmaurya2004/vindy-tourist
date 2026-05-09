@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Home, 
   Compass, 
@@ -26,6 +26,21 @@ const Navbar = () => {
   const [showCurrency, setShowCurrency] = useState(false);
   const [language, setLanguage] = useState('EN');
   const [currency, setCurrency] = useState('USD');
+  const langRef = useRef(null);
+  const currencyRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langRef.current && !langRef.current.contains(event.target)) {
+        setShowLang(false);
+      }
+      if (currencyRef.current && !currencyRef.current.contains(event.target)) {
+        setShowCurrency(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,7 +84,7 @@ const Navbar = () => {
           <div className="nav-actions">
             <div className="nav-meta">
               {/* Language Dropdown */}
-              <div className="dropdown-container">
+              <div className="dropdown-container" ref={langRef}>
                 <button className="meta-btn" onClick={() => { setShowLang(!showLang); setShowCurrency(false); }}>
                   <Globe size={18} />
                   <span>{language}</span>
@@ -101,7 +116,7 @@ const Navbar = () => {
               </div>
 
               {/* Currency Dropdown */}
-              <div className="dropdown-container">
+              <div className="dropdown-container" ref={currencyRef}>
                 <button className="meta-btn" onClick={() => { setShowCurrency(!showCurrency); setShowLang(false); }}>
                   <span>{currency === 'USD' ? '$' : currency === 'INR' ? '₹' : currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : '¥'} {currency}</span>
                   <ChevronDown size={14} className={showCurrency ? 'rotate' : ''} />
