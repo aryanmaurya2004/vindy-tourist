@@ -18,7 +18,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ setView, currentView }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
@@ -51,8 +51,8 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', icon: <Home size={18} />, href: '#' },
-    { name: 'Explore', icon: <Compass size={18} />, href: '#' },
+    { name: 'Home', icon: <Home size={18} />, href: '#', view: 'home' },
+    { name: 'Explore', icon: <Compass size={18} />, href: '#', view: 'explore' },
     { name: 'AI Planner', icon: <Zap size={18} />, href: '#' },
     { name: 'Packages', icon: <Package size={18} />, href: '#' },
     { name: 'Stay & Food', icon: <Utensils size={18} />, href: '#' },
@@ -64,7 +64,7 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container glass">
         <div className="nav-content">
-          <div className="logo">
+          <div className="logo" onClick={() => setView('home')} style={{ cursor: 'pointer' }}>
             <div className="logo-circle">
               <Compass size={20} />
             </div>
@@ -74,7 +74,17 @@ const Navbar = () => {
           {/* Desktop Nav */}
           <div className="desktop-links">
             {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="nav-link">
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className={`nav-link ${currentView === link.view ? 'active' : ''}`}
+                onClick={(e) => {
+                  if (link.view) {
+                    e.preventDefault();
+                    setView(link.view);
+                  }
+                }}
+              >
                 {link.icon}
                 <span>{link.name}</span>
               </a>
@@ -173,7 +183,18 @@ const Navbar = () => {
             className="mobile-menu glass"
           >
             {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="mobile-link" onClick={() => setIsOpen(false)}>
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className={`mobile-link ${currentView === link.view ? 'active' : ''}`}
+                onClick={(e) => {
+                  if (link.view) {
+                    e.preventDefault();
+                    setView(link.view);
+                  }
+                  setIsOpen(false);
+                }}
+              >
                 {link.icon}
                 <span>{link.name}</span>
               </a>

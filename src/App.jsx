@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar';
+import Explore from './components/Explore';
 import { motion } from 'framer-motion';
 import {
   Search,
@@ -25,6 +26,8 @@ import {
 import './App.css';
 
 function App() {
+  const [currentView, setCurrentView] = React.useState('home');
+
   const moods = [
     { name: 'Chill', emoji: '😌' },
     { name: 'Adventure', emoji: '🧗' },
@@ -164,415 +167,421 @@ function App() {
         <div className="bg-orb orb-3"></div>
         <div className="bg-orb orb-4"></div>
       </div>
-      <Navbar />
+      <Navbar setView={setCurrentView} currentView={currentView} />
 
       <main>
-        <section className="hero-section">
-          <div className="hero-bg-image"></div>
-          <div className="hero-overlay"></div>
+        {currentView === 'home' ? (
+          <>
+            <section className="hero-section">
+              <div className="hero-bg-image"></div>
+              <div className="hero-overlay"></div>
 
-          <div className="hero-container">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="hero-content"
-            >
-              <h1 className="hero-title">
-                Don't just visit,<br />
-                <span className="gradient-text">experience the world</span>
-              </h1>
-
-              <p className="hero-subtitle">
-                Discover hidden gems, plan with AI, and create memories that last forever
-              </p>
-
-              <div className="search-container glass">
-                <div className="search-inputs">
-                  <div className="input-group">
-                    <label>Where to?</label>
-                    <div className="input-with-icon">
-                      <MapPin size={16} />
-                      <input type="text" placeholder="Search destinations" />
-                    </div>
-                  </div>
-                  <div className="input-divider"></div>
-                  <div className="input-group">
-                    <label>Budget range</label>
-                    <div className="input-with-icon">
-                      <DollarSign size={16} />
-                      <input type="text" placeholder="Select budget" />
-                    </div>
-                  </div>
-                  <div className="input-divider"></div>
-                  <div className="input-group">
-                    <label>Travel type</label>
-                    <div className="input-with-icon">
-                      <Compass size={16} />
-                      <input type="text" placeholder="Select type" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="search-buttons">
-                  <button className="btn-search">
-                    <Search size={18} />
-                    <span>Search Destinations</span>
-                  </button>
-                  <button className="btn-ai">
-                    <Sparkles size={18} />
-                    <span>Plan My Trip with AI</span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="travel-moods">
-                <span>Travel mood:</span>
-                <div className="mood-chips">
-                  {moods.map((mood) => (
-                    <button key={mood.name} className="mood-chip">
-                      <span>{mood.emoji}</span>
-                      <span>{mood.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Travel Style Section */}
-        <section className="style-section">
-          <div className="container">
-            <div className="section-header">
-              <h2 className="section-title">What's your travel style?</h2>
-              <p className="section-subtitle">Choose your vibe and we'll find the perfect destination for you</p>
-            </div>
-
-            <div className="style-grid">
-              {travelStyles.map((style) => (
+              <div className="hero-container">
                 <motion.div
-                  key={style.name}
-                  whileHover={{ y: -10 }}
-                  className="style-card glass"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="hero-content"
                 >
-                  <div className="style-icon" style={{ backgroundColor: style.color }}>
-                    {style.icon}
-                  </div>
-                  <span>{style.name}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+                  <h1 className="hero-title">
+                    Don't just visit,<br />
+                    <span className="gradient-text">experience the world</span>
+                  </h1>
 
-        {/* Hot Destinations Section */}
-        <section className="destinations-section">
-          <div className="container">
-            <div className="section-top">
-              <div className="trending-label">
-                <Sparkles size={16} />
-                <span>TRENDING NOW</span>
-              </div>
-              <div className="section-header-flex">
-                <h2 className="section-title">Hot destinations</h2>
-                <a href="#" className="view-all">View all <ArrowRight size={16} /></a>
-              </div>
-            </div>
-
-            <div className="destinations-grid">
-              {hotDestinations.map((dest) => (
-                <motion.div
-                  key={dest.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10 }}
-                  className="dest-card"
-                >
-                  <div className="dest-image-wrapper">
-                    <img src={dest.image} alt={dest.name} className="dest-img" />
-                    <div className="dest-overlay">
-                      {dest.trending && <span className="trending-tag">Trending</span>}
-                      <button className="wishlist-btn">
-                        <Heart size={18} />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="dest-details">
-                    <div className="dest-header">
-                      <h3>{dest.name}</h3>
-                      <div className="dest-rating">
-                        <Star size={14} fill="currentColor" />
-                        <span>{dest.rating}</span>
-                      </div>
-                    </div>
-                    <p className="dest-location">
-                      <MapPin size={12} />
-                      {dest.country}
-                    </p>
-                    <div className="dest-footer">
-                      <span className="price-tag">{dest.price}</span>
-                      <button className="book-small-btn">Book Now</button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Budget Trips Section */}
-        <section className="destinations-section budget-section">
-          <div className="container">
-            <div className="section-top">
-              <div className="budget-label">
-                <DollarSign size={16} />
-                <span>BUDGET TRIPS</span>
-              </div>
-              <div className="section-header-flex">
-                <h2 className="section-title">Amazing trips, less money</h2>
-                <a href="#" className="view-all">View all <ArrowRight size={16} /></a>
-              </div>
-            </div>
-
-            <div className="destinations-grid">
-              {budgetDestinations.map((dest) => (
-                <motion.div 
-                  key={dest.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="dest-card"
-                >
-                  <div className="dest-image-wrapper">
-                    <img src={dest.image} alt={dest.name} className="dest-img" />
-                    <div className="dest-overlay">
-                      <span className="budget-badge">Budget</span>
-                    </div>
-                  </div>
-                  <div className="dest-details">
-                    <h3>{dest.name}</h3>
-                    <p className="dest-location">{dest.country}</p>
-                    <p className="price-tag">{dest.price}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <div className="section-spacer" style={{ height: '4rem' }}></div>
-
-          <div className="container">
-            <div className="section-top">
-              <div className="budget-label" style={{ color: '#0fb9b1' }}>
-                <Sparkles size={16} />
-                <span>HIDDEN GEMS</span>
-              </div>
-              <div className="section-header-flex">
-                <h2 className="section-title">Not on Instagram yet</h2>
-                <a href="#" className="view-all">Explore more <ArrowRight size={16} /></a>
-              </div>
-            </div>
-
-            <div className="destinations-grid">
-              {hiddenGems.map((dest) => (
-                <motion.div 
-                  key={dest.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="dest-card"
-                >
-                  <div className="dest-image-wrapper">
-                    <img src={dest.image} alt={dest.name} className="dest-img" />
-                    <div className="dest-overlay">
-                      <span className="hidden-badge">Hidden Gem</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-          <div className="section-spacer" style={{ height: '6rem' }}></div>
-
-          <div className="container">
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="ai-plan-section"
-            >
-              <div className="ai-plan-card">
-                <div className="ai-plan-content">
-                  <div className="ai-label-pill">
-                    <Sparkles size={14} className="sparkle-icon" />
-                    <span>AI-Powered Planning</span>
-                  </div>
-                  <h2 className="ai-plan-title">Let AI plan your <br/> perfect trip</h2>
-                  <p className="ai-plan-description">
-                    Tell us your budget, days, and interests. Our AI creates a custom 
-                    itinerary with the best hotels, food spots, and hidden gems.
+                  <p className="hero-subtitle">
+                    Discover hidden gems, plan with AI, and create memories that last forever
                   </p>
-                  <div className="ai-plan-footer">
-                    <motion.button 
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="ai-main-btn"
-                    >
-                      <Sparkles size={20} />
-                      <span>Plan My Trip Now</span>
-                    </motion.button>
-                  </div>
-                </div>
-                
-                {/* Decorative Elements */}
-                <div className="ai-blob blob-1"></div>
-                <div className="ai-blob blob-2"></div>
-                <div className="ai-blob blob-3"></div>
-              </div>
-            </motion.div>
-          </div>
 
-          <div className="section-spacer" style={{ height: '6rem' }}></div>
-
-          <div className="container">
-            <div className="section-top">
-              <div className="section-header-flex">
-                <div>
-                  <h2 className="section-title">Curated packages</h2>
-                  <p className="section-subtitle">Handpicked trips for every kind of traveler</p>
-                </div>
-                <a href="#" className="view-all">All packages <ArrowRight size={16} /></a>
-              </div>
-            </div>
-
-            <div className="destinations-grid">
-              {curatedPackages.map((pkg) => (
-                <motion.div 
-                  key={pkg.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="package-card"
-                >
-                  <div className="package-image-wrapper">
-                    <img src={pkg.image} alt={pkg.title} className="package-img" />
-                    <div className="package-badge">{pkg.category}</div>
-                  </div>
-                  <div className="package-details">
-                    <h3>{pkg.title}</h3>
-                    <p>{pkg.description}</p>
-                    <div className="package-footer">
-                      <span className="package-duration">
-                        <Compass size={14} />
-                        {pkg.duration}
-                      </span>
-                      <button className="book-small-btn">Explore</button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <div className="section-spacer" style={{ height: '6rem' }}></div>
-
-          <div className="container">
-            <div className="section-top">
-              <div className="section-header-flex">
-                <div>
-                  <h2 className="section-title">Travel stories</h2>
-                  <p className="section-subtitle">Real experiences from real travelers</p>
-                </div>
-                <a href="#" className="view-all">Watch all <ArrowRight size={16} /></a>
-              </div>
-            </div>
-
-            <div className="stories-grid">
-              {travelStories.map((story) => (
-                <motion.div
-                  key={story.id}
-                  whileHover={{ y: -10 }}
-                  className="story-card"
-                >
-                  <div className="story-image-wrapper">
-                    <img src={story.image} alt={story.title} className="story-img" />
-                    <div className="story-overlay">
-                      <div className="play-btn-wrapper">
-                        <Play size={20} fill="white" />
+                  <div className="search-container glass">
+                    <div className="search-inputs">
+                      <div className="input-group">
+                        <label>Where to?</label>
+                        <div className="input-with-icon">
+                          <MapPin size={16} />
+                          <input type="text" placeholder="Search destinations" />
+                        </div>
                       </div>
-                      <div className="story-content">
-                        <p className="story-title">{story.title}</p>
-                        <div className="story-user">
-                          <img src={story.avatar} alt={story.user} className="user-avatar" />
-                          <span>{story.user}</span>
+                      <div className="input-divider"></div>
+                      <div className="input-group">
+                        <label>Budget range</label>
+                        <div className="input-with-icon">
+                          <DollarSign size={16} />
+                          <input type="text" placeholder="Select budget" />
+                        </div>
+                      </div>
+                      <div className="input-divider"></div>
+                      <div className="input-group">
+                        <label>Travel type</label>
+                        <div className="input-with-icon">
+                          <Compass size={16} />
+                          <input type="text" placeholder="Select type" />
                         </div>
                       </div>
                     </div>
+
+                    <div className="search-buttons">
+                      <button className="btn-search">
+                        <Search size={18} />
+                        <span>Search Destinations</span>
+                      </button>
+                      <button className="btn-ai">
+                        <Sparkles size={18} />
+                        <span>Plan My Trip with AI</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="travel-moods">
+                    <span>Travel mood:</span>
+                    <div className="mood-chips">
+                      {moods.map((mood) => (
+                        <button key={mood.name} className="mood-chip">
+                          <span>{mood.emoji}</span>
+                          <span>{mood.name}</span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-          </div>
+              </div>
+            </section>
 
-          <div className="section-spacer" style={{ height: '6rem' }}></div>
-
-          {/* Weather Section */}
-          <div className="container">
-            <div className="weather-section">
-              <div className="weather-card glass">
-                <div className="weather-header">
-                  <Cloud size={40} className="weather-main-icon" />
-                  <h2 className="section-title">Weather-based suggestions</h2>
-                  <p className="section-subtitle">Smart destination swaps based on weather conditions</p>
+            {/* Travel Style Section */}
+            <section className="style-section">
+              <div className="container">
+                <div className="section-header">
+                  <h2 className="section-title">What's your travel style?</h2>
+                  <p className="section-subtitle">Choose your vibe and we'll find the perfect destination for you</p>
                 </div>
 
-                <div className="weather-content">
-                  <div className="weather-status">
-                    <Sparkles size={18} />
-                    <span>Hot Summer</span>
+                <div className="style-grid">
+                  {travelStyles.map((style) => (
+                    <motion.div
+                      key={style.name}
+                      whileHover={{ y: -10 }}
+                      className="style-card glass"
+                    >
+                      <div className="style-icon" style={{ backgroundColor: style.color }}>
+                        {style.icon}
+                      </div>
+                      <span>{style.name}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Hot Destinations Section */}
+            <section className="destinations-section">
+              <div className="container">
+                <div className="section-top">
+                  <div className="trending-label">
+                    <Sparkles size={16} />
+                    <span>TRENDING NOW</span>
                   </div>
-                  <div className="weather-suggestion">
-                    <span className="skip-text">Skip <span className="highlight-red">Rajasthan</span></span>
-                    <ArrowRight size={20} />
-                    <span className="go-text">Go to <span className="highlight-green">Iceland</span></span>
+                  <div className="section-header-flex">
+                    <h2 className="section-title">Hot destinations</h2>
+                    <a href="#" className="view-all" onClick={(e) => { e.preventDefault(); setCurrentView('explore'); }}>View all <ArrowRight size={16} /></a>
                   </div>
-                  <p className="weather-desc">Cool glaciers and midnight sun</p>
                 </div>
 
-                <div className="weather-footer">
-                  <div className="pagination-dots">
-                    <span className="dot active"></span>
-                    <span className="dot"></span>
-                    <span className="dot"></span>
+                <div className="destinations-grid">
+                  {hotDestinations.map((dest) => (
+                    <motion.div
+                      key={dest.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      whileHover={{ y: -10 }}
+                      className="dest-card"
+                    >
+                      <div className="dest-image-wrapper">
+                        <img src={dest.image} alt={dest.name} className="dest-img" />
+                        <div className="dest-overlay">
+                          {dest.trending && <span className="trending-tag">Trending</span>}
+                          <button className="wishlist-btn">
+                            <Heart size={18} />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="dest-details">
+                        <div className="dest-header">
+                          <h3>{dest.name}</h3>
+                          <div className="dest-rating">
+                            <Star size={14} fill="currentColor" />
+                            <span>{dest.rating}</span>
+                          </div>
+                        </div>
+                        <p className="dest-location">
+                          <MapPin size={12} />
+                          {dest.country}
+                        </p>
+                        <div className="dest-footer">
+                          <span className="price-tag">{dest.price}</span>
+                          <button className="book-small-btn">Book Now</button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Budget Trips Section */}
+            <section className="destinations-section budget-section">
+              <div className="container">
+                <div className="section-top">
+                  <div className="budget-label">
+                    <DollarSign size={16} />
+                    <span>BUDGET TRIPS</span>
                   </div>
-                  <button className="weather-btn">
-                    <Cloud size={18} />
-                    <span>Check Weather Suggestions</span>
+                  <div className="section-header-flex">
+                    <h2 className="section-title">Amazing trips, less money</h2>
+                    <a href="#" className="view-all" onClick={(e) => { e.preventDefault(); setCurrentView('explore'); }}>View all <ArrowRight size={16} /></a>
+                  </div>
+                </div>
+
+                <div className="destinations-grid">
+                  {budgetDestinations.map((dest) => (
+                    <motion.div 
+                      key={dest.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="dest-card"
+                    >
+                      <div className="dest-image-wrapper">
+                        <img src={dest.image} alt={dest.name} className="dest-img" />
+                        <div className="dest-overlay">
+                          <span className="budget-badge">Budget</span>
+                        </div>
+                      </div>
+                      <div className="dest-details">
+                        <h3>{dest.name}</h3>
+                        <p className="dest-location">{dest.country}</p>
+                        <p className="price-tag">{dest.price}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="section-spacer" style={{ height: '4rem' }}></div>
+
+              <div className="container">
+                <div className="section-top">
+                  <div className="budget-label" style={{ color: '#0fb9b1' }}>
+                    <Sparkles size={16} />
+                    <span>HIDDEN GEMS</span>
+                  </div>
+                  <div className="section-header-flex">
+                    <h2 className="section-title">Not on Instagram yet</h2>
+                    <a href="#" className="view-all" onClick={(e) => { e.preventDefault(); setCurrentView('explore'); }}>Explore more <ArrowRight size={16} /></a>
+                  </div>
+                </div>
+
+                <div className="destinations-grid">
+                  {hiddenGems.map((dest) => (
+                    <motion.div 
+                      key={dest.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="dest-card"
+                    >
+                      <div className="dest-image-wrapper">
+                        <img src={dest.image} alt={dest.name} className="dest-img" />
+                        <div className="dest-overlay">
+                          <span className="hidden-badge">Hidden Gem</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+              <div className="section-spacer" style={{ height: '6rem' }}></div>
+
+              <div className="container">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="ai-plan-section"
+                >
+                  <div className="ai-plan-card">
+                    <div className="ai-plan-content">
+                      <div className="ai-label-pill">
+                        <Sparkles size={14} className="sparkle-icon" />
+                        <span>AI-Powered Planning</span>
+                      </div>
+                      <h2 className="ai-plan-title">Let AI plan your <br/> perfect trip</h2>
+                      <p className="ai-plan-description">
+                        Tell us your budget, days, and interests. Our AI creates a custom 
+                        itinerary with the best hotels, food spots, and hidden gems.
+                      </p>
+                      <div className="ai-plan-footer">
+                        <motion.button 
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="ai-main-btn"
+                        >
+                          <Sparkles size={20} />
+                          <span>Plan My Trip Now</span>
+                        </motion.button>
+                      </div>
+                    </div>
+                    
+                    {/* Decorative Elements */}
+                    <div className="ai-blob blob-1"></div>
+                    <div className="ai-blob blob-2"></div>
+                    <div className="ai-blob blob-3"></div>
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="section-spacer" style={{ height: '6rem' }}></div>
+
+              <div className="container">
+                <div className="section-top">
+                  <div className="section-header-flex">
+                    <div>
+                      <h2 className="section-title">Curated packages</h2>
+                      <p className="section-subtitle">Handpicked trips for every kind of traveler</p>
+                    </div>
+                    <a href="#" className="view-all">All packages <ArrowRight size={16} /></a>
+                  </div>
+                </div>
+
+                <div className="destinations-grid">
+                  {curatedPackages.map((pkg) => (
+                    <motion.div 
+                      key={pkg.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="package-card"
+                    >
+                      <div className="package-image-wrapper">
+                        <img src={pkg.image} alt={pkg.title} className="package-img" />
+                        <div className="package-badge">{pkg.category}</div>
+                      </div>
+                      <div className="package-details">
+                        <h3>{pkg.title}</h3>
+                        <p>{pkg.description}</p>
+                        <div className="package-footer">
+                          <span className="package-duration">
+                            <Compass size={14} />
+                            {pkg.duration}
+                          </span>
+                          <button className="book-small-btn">Explore</button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="section-spacer" style={{ height: '6rem' }}></div>
+
+              <div className="container">
+                <div className="section-top">
+                  <div className="section-header-flex">
+                    <div>
+                      <h2 className="section-title">Travel stories</h2>
+                      <p className="section-subtitle">Real experiences from real travelers</p>
+                    </div>
+                    <a href="#" className="view-all">Watch all <ArrowRight size={16} /></a>
+                  </div>
+                </div>
+
+                <div className="stories-grid">
+                  {travelStories.map((story) => (
+                    <motion.div
+                      key={story.id}
+                      whileHover={{ y: -10 }}
+                      className="story-card"
+                    >
+                      <div className="story-image-wrapper">
+                        <img src={story.image} alt={story.title} className="story-img" />
+                        <div className="story-overlay">
+                          <div className="play-btn-wrapper">
+                            <Play size={20} fill="white" />
+                          </div>
+                          <div className="story-content">
+                            <p className="story-title">{story.title}</p>
+                            <div className="story-user">
+                              <img src={story.avatar} alt={story.user} className="user-avatar" />
+                              <span>{story.user}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="section-spacer" style={{ height: '6rem' }}></div>
+
+              {/* Weather Section */}
+              <div className="container">
+                <div className="weather-section">
+                  <div className="weather-card glass">
+                    <div className="weather-header">
+                      <Cloud size={40} className="weather-main-icon" />
+                      <h2 className="section-title">Weather-based suggestions</h2>
+                      <p className="section-subtitle">Smart destination swaps based on weather conditions</p>
+                    </div>
+
+                    <div className="weather-content">
+                      <div className="weather-status">
+                        <Sparkles size={18} />
+                        <span>Hot Summer</span>
+                      </div>
+                      <div className="weather-suggestion">
+                        <span className="skip-text">Skip <span className="highlight-red">Rajasthan</span></span>
+                        <ArrowRight size={20} />
+                        <span className="go-text">Go to <span className="highlight-green">Iceland</span></span>
+                      </div>
+                      <p className="weather-desc">Cool glaciers and midnight sun</p>
+                    </div>
+
+                    <div className="weather-footer">
+                      <div className="pagination-dots">
+                        <span className="dot active"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                      </div>
+                      <button className="weather-btn">
+                        <Cloud size={18} />
+                        <span>Check Weather Suggestions</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="section-spacer" style={{ height: '6rem' }}></div>
+
+              {/* Explore Near You Section */}
+              <div className="container">
+                <div className="explore-near-section">
+                  <div className="explore-header">
+                    <Send size={40} className="explore-main-icon" />
+                    <h2 className="section-title">Explore near you</h2>
+                    <p className="section-subtitle">Discover amazing destinations close to your current location</p>
+                  </div>
+                  <button className="explore-near-btn">
+                    <Send size={18} />
+                    <span>Find Nearby Places</span>
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="section-spacer" style={{ height: '6rem' }}></div>
-
-          {/* Explore Near You Section */}
-          <div className="container">
-            <div className="explore-near-section">
-              <div className="explore-header">
-                <Send size={40} className="explore-main-icon" />
-                <h2 className="section-title">Explore near you</h2>
-                <p className="section-subtitle">Discover amazing destinations close to your current location</p>
-              </div>
-              <button className="explore-near-btn">
-                <Send size={18} />
-                <span>Find Nearby Places</span>
-              </button>
-            </div>
-          </div>
-        </section>
+            </section>
+          </>
+        ) : (
+          <Explore />
+        )}
       </main>
 
       {/* Footer Section */}

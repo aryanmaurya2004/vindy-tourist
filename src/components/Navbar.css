@@ -71,8 +71,24 @@
   transition: color 0.2s ease;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.active {
   color: white;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #3b82f6;
+  border-radius: 2px;
+}
+
+.nav-link {
+  position: relative;
 }
 
 .nav-link span {
@@ -207,6 +223,13 @@
   font-size: 1.1rem;
   padding: 0.5rem 0;
   border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+.mobile-link.active {
+  color: #3b82f6;
+  padding-left: 0.5rem;
+  border-bottom-color: rgba(59, 130, 246, 0.3);
 }
 
 .mobile-meta {
