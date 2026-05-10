@@ -130,3 +130,162 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Booking Confirmation & Table Styles */
+.booking-confirmation {
+  margin-top: 3rem;
+  padding: 2.5rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.conf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.conf-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.conf-title h2 {
+  font-size: 1.75rem;
+  color: white;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.booking-table-container {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.booking-table th {
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.booking-table th svg {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  color: #3b82f6;
+}
+
+.booking-table td {
+  padding: 1.5rem 1.25rem;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.booking-id {
+  font-family: monospace;
+  font-size: 1.1rem;
+  color: #10b981 !important;
+  font-weight: 700;
+}
+
+.table-stay-info {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.table-stay-info img {
+  width: 60px;
+  height: 60px;
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+
+.table-stay-name {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.table-stay-loc {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.table-price {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.booking-footer-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-item .label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.info-item .value {
+  color: white;
+  font-weight: 600;
+}
+
+.status-confirmed {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .booking-footer-info {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .booking-confirmation {
+    padding: 1.5rem;
+  }
+}
