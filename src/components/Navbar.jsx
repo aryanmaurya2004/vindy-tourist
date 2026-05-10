@@ -161,7 +161,10 @@ const Navbar = ({ setView, currentView }) => {
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
-            <button className="my-trips-btn">
+            <button 
+              className={`my-trips-btn ${currentView === 'mytrips' ? 'active' : ''}`} 
+              onClick={() => setView('mytrips')}
+            >
               <UserCircle size={20} />
               <span>My Trips</span>
             </button>
@@ -230,7 +233,12 @@ const Navbar = ({ setView, currentView }) => {
                   </div>
                 </div>
               </div>
-              <button className="mobile-action-btn">My Trips</button>
+              <button 
+                className={`mobile-action-btn ${currentView === 'mytrips' ? 'active' : ''}`}
+                onClick={() => { setView('mytrips'); setIsOpen(false); }}
+              >
+                My Trips
+              </button>
             </div>
           </motion.div>
         )}
