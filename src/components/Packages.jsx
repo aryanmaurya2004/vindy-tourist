@@ -6,6 +6,7 @@ import './Packages.css';
 
 const Packages = () => {
   const [selectedPkg, setSelectedPkg] = React.useState(null);
+  const [bookingStatus, setBookingStatus] = React.useState(null); // 'booking' or 'confirmed'
 
   const packages = [
     {
@@ -59,7 +60,19 @@ const Packages = () => {
         { day: 3, title: 'Fuji Excursion', desc: 'Day trip to Lake Kawaguchi for the best views of Mt. Fuji.' }
       ]
     }
-  ];
+  const handleExplore = (pkg) => {
+    setSelectedPkg(pkg);
+    setBookingStatus('exploring');
+  };
+
+  const handleBookNow = () => {
+    setBookingStatus('confirmed');
+  };
+
+  const closeDetail = () => {
+    setSelectedPkg(null);
+    setBookingStatus(null);
+  };
 
   return (
     <div className="packages-page">
@@ -98,7 +111,7 @@ const Packages = () => {
                     <span className="from">From</span>
                     <span className="amount">{pkg.price}</span>
                   </div>
-                  <button className="pkg-btn" onClick={() => setSelectedPkg(pkg)}>Explore</button>
+                  <button className="pkg-btn" onClick={() => handleExplore(pkg)}>Explore</button>
                 </div>
               </div>
             </motion.div>
@@ -113,7 +126,7 @@ const Packages = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="pkg-detail-overlay"
-              onClick={() => setSelectedPkg(null)}
+              onClick={closeDetail}
             >
               <motion.div 
                 initial={{ scale: 0.9, y: 20 }}
@@ -122,72 +135,127 @@ const Packages = () => {
                 className="pkg-detail-modal glass"
                 onClick={e => e.stopPropagation()}
               >
-                <button className="close-detail" onClick={() => setSelectedPkg(null)}>
+                <button className="close-detail" onClick={closeDetail}>
                   <X size={24} />
                 </button>
                 
                 <div className="modal-content">
-                  <div className="modal-hero">
-                    <img src={selectedPkg.image} alt={selectedPkg.title} />
-                    <div className="modal-hero-text">
-                      <div className="modal-category">{selectedPkg.category}</div>
-                      <h2>{selectedPkg.title}</h2>
-                      <p><MapPin size={16} /> {selectedPkg.location}</p>
-                    </div>
-                  </div>
+                  {bookingStatus === 'exploring' ? (
+                    <>
+                      <div className="modal-hero">
+                        <img src={selectedPkg.image} alt={selectedPkg.title} />
+                        <div className="modal-hero-text">
+                          <div className="modal-category">{selectedPkg.category}</div>
+                          <h2>{selectedPkg.title}</h2>
+                          <p><MapPin size={16} /> {selectedPkg.location}</p>
+                        </div>
+                      </div>
 
-                  <div className="modal-body">
-                    <div className="modal-main">
-                      <section className="modal-section">
-                        <h3>About the Experience</h3>
-                        <p>{selectedPkg.description}</p>
-                      </section>
+                      <div className="modal-body">
+                        <div className="modal-main">
+                          <section className="modal-section">
+                            <h3>About the Experience</h3>
+                            <p>{selectedPkg.description}</p>
+                          </section>
 
-                      <section className="modal-section">
-                        <h3>Itinerary Highlights</h3>
-                        <div className="modal-itinerary">
-                          {selectedPkg.itinerary.map(item => (
-                            <div key={item.day} className="itinerary-item">
-                              <div className="day-circle">{item.day}</div>
-                              <div className="day-info">
-                                <h4>{item.title}</h4>
-                                <p>{item.desc}</p>
+                          <section className="modal-section">
+                            <h3>Itinerary Highlights</h3>
+                            <div className="modal-itinerary">
+                              {selectedPkg.itinerary.map(item => (
+                                <div key={item.day} className="itinerary-item">
+                                  <div className="day-circle">{item.day}</div>
+                                  <div className="day-info">
+                                    <h4>{item.title}</h4>
+                                    <p>{item.desc}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </section>
+                        </div>
+
+                        <div className="modal-sidebar">
+                          <div className="booking-card glass">
+                            <div className="price-display">
+                              <span className="price-label">Total Package Price</span>
+                              <span className="price-val">{selectedPkg.price}</span>
+                            </div>
+                            <div className="stats-grid">
+                              <div className="stat">
+                                <Clock size={16} />
+                                <span>{selectedPkg.duration}</span>
+                              </div>
+                              <div className="stat">
+                                <Star size={16} fill="#eab308" color="#eab308" />
+                                <span>{selectedPkg.rating} Rating</span>
                               </div>
                             </div>
-                          ))}
-                        </div>
-                      </section>
-                    </div>
-
-                    <div className="modal-sidebar">
-                      <div className="booking-card glass">
-                        <div className="price-display">
-                          <span className="price-label">Total Package Price</span>
-                          <span className="price-val">{selectedPkg.price}</span>
-                        </div>
-                        <div className="stats-grid">
-                          <div className="stat">
-                            <Clock size={16} />
-                            <span>{selectedPkg.duration}</span>
-                          </div>
-                          <div className="stat">
-                            <Star size={16} fill="#eab308" color="#eab308" />
-                            <span>{selectedPkg.rating} Rating</span>
-                          </div>
-                        </div>
-                        <div className="highlights-list">
-                          {selectedPkg.highlights.map(h => (
-                            <div key={h} className="highlight">
-                              <CheckCircle2 size={16} color="#10b981" />
-                              <span>{h}</span>
+                            <div className="highlights-list">
+                              {selectedPkg.highlights.map(h => (
+                                <div key={h} className="highlight">
+                                  <CheckCircle2 size={16} color="#10b981" />
+                                  <span>{h}</span>
+                                </div>
+                              ))}
                             </div>
-                          ))}
+                            <button className="book-now-btn" onClick={handleBookNow}>Book This Trip</button>
+                            <p className="secure-text"><ShieldCheck size={14} /> Secure Booking Guaranteed</p>
+                          </div>
                         </div>
-                        <button className="book-now-btn">Book This Trip</button>
-                        <p className="secure-text"><ShieldCheck size={14} /> Secure Booking Guaranteed</p>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                  ) : (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="booking-success-view"
+                    >
+                      <div className="success-header">
+                        <div className="success-badge">
+                          <CheckCircle2 size={48} color="#10b981" />
+                        </div>
+                        <h2>Your Trip Plan is Ready!</h2>
+                        <p>Booking ID: WL-{Math.floor(100000 + Math.random() * 900000)}</p>
+                      </div>
+
+                      <div className="success-details-grid">
+                        <div className="success-info-card glass">
+                          <div className="card-item">
+                            <span className="label">Destination</span>
+                            <span className="value">{selectedPkg.title}</span>
+                          </div>
+                          <div className="card-item">
+                            <span className="label">Duration</span>
+                            <span className="value">{selectedPkg.duration}</span>
+                          </div>
+                          <div className="card-item">
+                            <span className="label">Total Paid</span>
+                            <span className="value highlight-price">{selectedPkg.price}</span>
+                          </div>
+                        </div>
+
+                        <div className="success-itinerary glass">
+                          <h3>Your Complete Itinerary</h3>
+                          <div className="itinerary-timeline">
+                            {selectedPkg.itinerary.map(item => (
+                              <div key={item.day} className="timeline-step">
+                                <div className="step-marker">Day {item.day}</div>
+                                <div className="step-content">
+                                  <h4>{item.title}</h4>
+                                  <p>{item.desc}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="success-actions">
+                        <button className="download-btn">Download Itinerary</button>
+                        <button className="done-btn" onClick={closeDetail}>Return to Packages</button>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             </motion.div>

@@ -382,3 +382,197 @@
     border-radius: 0;
   }
 }
+
+/* Booking Success View Styles */
+.booking-success-view {
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.success-header {
+  text-align: center;
+}
+
+.success-badge {
+  width: 100px;
+  height: 100px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+}
+
+.success-header h2 {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.success-header p {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: monospace;
+  font-size: 1.1rem;
+}
+
+.success-details-grid {
+  width: 100%;
+  display: grid;
+  gap: 2rem;
+}
+
+.success-info-card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-item .label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-item .value {
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.highlight-price {
+  color: #3b82f6 !important;
+}
+
+.success-itinerary {
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.success-itinerary h3 {
+  color: white;
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+}
+
+.itinerary-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.timeline-step {
+  display: flex;
+  gap: 2rem;
+  position: relative;
+}
+
+.timeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 35px;
+  top: 50px;
+  bottom: -20px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.step-marker {
+  width: 70px;
+  padding: 0.5rem;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-align: center;
+  height: fit-content;
+  flex-shrink: 0;
+}
+
+.step-content h4 {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.step-content p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+}
+
+.success-actions {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.download-btn, .done-btn {
+  flex: 1;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.download-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.download-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.done-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+}
+
+.done-btn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .booking-success-view {
+    padding: 2rem;
+  }
+  
+  .success-info-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .success-actions {
+    flex-direction: column;
+  }
+  
+  .timeline-step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .timeline-step:not(:last-child)::after {
+    display: none;
+  }
+}
