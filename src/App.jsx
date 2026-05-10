@@ -6,6 +6,7 @@ import Packages from './components/Packages';
 import StayFood from './components/StayFood';
 import Stories from './components/Stories';
 import Community from './components/Community';
+import MyTrips from './components/MyTrips';
 import { motion } from 'framer-motion';
 import {
   Search,
@@ -594,6 +595,8 @@ function App() {
           <StayFood />
         ) : currentView === 'stories' ? (
           <Stories />
+        ) : currentView === 'mytrips' ? (
+          <MyTrips />
         ) : (
           <Community />
         )}
@@ -640,22 +643,37 @@ function App() {
               </ul>
             </div>
 
-            <div className="footer-column">
-              <h3>Contact</h3>
-              <ul className="contact-info">
-                <li>
-                  <Mail size={16} />
-                  <span>hello@wanderlust.travel</span>
-                </li>
-                <li>
-                  <Phone size={16} />
-                  <span>+91 8303319119</span>
-                </li>
-                <li>
-                  <MapPin size={16} />
-                  <span>123 Travel Lane, San Francisco, CA 94102</span>
-                </li>
-              </ul>
+            <div className="footer-column contact-column">
+              <h3>Get in Touch</h3>
+              <div className="contact-card glass">
+                <div className="contact-item">
+                  <div className="contact-icon">
+                    <Mail size={18} />
+                  </div>
+                  <div className="contact-text">
+                    <label>Email Us</label>
+                    <a href="mailto:hello@wanderlust.travel">hello@wanderlust.travel</a>
+                  </div>
+                </div>
+                <div className="contact-item">
+                  <div className="contact-icon">
+                    <Phone size={18} />
+                  </div>
+                  <div className="contact-text">
+                    <label>Call Us</label>
+                    <a href="tel:+918303319119">+91 8303319119</a>
+                  </div>
+                </div>
+                <div className="contact-item">
+                  <div className="contact-icon">
+                    <MapPin size={18} />
+                  </div>
+                  <div className="contact-text">
+                    <label>Visit Us</label>
+                    <span>123 Travel Lane, San Francisco, CA 94102</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
