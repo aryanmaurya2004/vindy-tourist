@@ -60,6 +60,8 @@ const Packages = () => {
         { day: 3, title: 'Fuji Excursion', desc: 'Day trip to Lake Kawaguchi for the best views of Mt. Fuji.' }
       ]
     }
+  ];
+
   const handleExplore = (pkg) => {
     setSelectedPkg(pkg);
     setBookingStatus('exploring');
@@ -78,7 +80,7 @@ const Packages = () => {
     <div className="packages-page">
       <div className="container">
         <header className="page-header">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="page-title"
@@ -90,7 +92,7 @@ const Packages = () => {
 
         <div className="packages-grid">
           {packages.map(pkg => (
-            <motion.div 
+            <motion.div
               key={pkg.id}
               whileHover={{ y: -10 }}
               className="package-card glass"
@@ -121,14 +123,14 @@ const Packages = () => {
         {/* Detail View */}
         <AnimatePresence>
           {selectedPkg && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="pkg-detail-overlay"
               onClick={closeDetail}
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
@@ -138,7 +140,7 @@ const Packages = () => {
                 <button className="close-detail" onClick={closeDetail}>
                   <X size={24} />
                 </button>
-                
+
                 <div className="modal-content">
                   {bookingStatus === 'exploring' ? (
                     <>
@@ -205,7 +207,7 @@ const Packages = () => {
                       </div>
                     </>
                   ) : (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="booking-success-view"
