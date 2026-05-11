@@ -7,12 +7,13 @@ import {
   Trash2, 
   MapPin, 
   Star,
-  User
+  User,
+  Calendar
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './MyTrips.css';
 
-const MyTrips = () => {
+const MyTrips = ({ bookedTrips = [] }) => {
   const [activeTab, setActiveTab] = useState('wishlist');
 
   const wishlistItems = [
@@ -46,10 +47,10 @@ const MyTrips = () => {
   ];
 
   const tabs = [
-    { id: 'wishlist', label: 'Wishlist', icon: <Heart size={16} />, count: 3 },
-    { id: 'saved', label: 'Saved Trips', icon: <Bookmark size={16} />, count: 2 },
-    { id: 'bookings', label: 'Bookings', icon: <Ticket size={16} />, count: 2 },
-    { id: 'aipicks', label: 'AI Picks', icon: <Sparkles size={16} />, count: 3 },
+    { id: 'wishlist', label: 'Wishlist', icon: <Heart size={16} />, count: wishlistItems.length },
+    { id: 'saved', label: 'Saved Trips', icon: <Bookmark size={16} />, count: 0 },
+    { id: 'bookings', label: 'Bookings', icon: <Ticket size={16} />, count: bookedTrips.length },
+    { id: 'aipicks', label: 'AI Picks', icon: <Sparkles size={16} />, count: 0 },
   ];
 
   return (
@@ -120,7 +121,50 @@ const MyTrips = () => {
               </div>
             ))}
 
-            {activeTab !== 'wishlist' && (
+            {activeTab === 'bookings' && bookedTrips.length > 0 ? (
+              bookedTrips.map((trip) => (
+                <div key={trip.bookingId} className="trip-item-row glass booking-item">
+                  <div className="item-img">
+                    <img src={trip.image} alt={trip.name} />
+                    <div className="booking-badge">Confirmed</div>
+                  </div>
+                  <div className="item-details">
+                    <div className="item-main">
+                      <h3>{trip.name}</h3>
+                      <p className="item-location">
+                        <MapPin size={12} />
+                        {trip.country}
+                      </p>
+                      <div className="item-meta">
+                        <div className="meta-date">
+                          <Calendar size={14} />
+                          <span>Booked on {trip.date}</span>
+                        </div>
+                        <span className="meta-price">{trip.price}</span>
+                        <div className="meta-rating">
+                          <Star size={14} fill="#eab308" color="#eab308" />
+                          <span>{trip.rating}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="booking-actions">
+                      <button className="view-ticket-btn">View Ticket</button>
+                      <button className="delete-btn">
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : activeTab === 'bookings' ? (
+              <div className="empty-state glass">
+                <Ticket size={48} className="empty-icon" />
+                <h3>No bookings yet</h3>
+                <p>Explore stories and packages to start your next adventure!</p>
+              </div>
+            ) : null}
+
+            {activeTab !== 'wishlist' && activeTab !== 'bookings' && (
               <div className="empty-state glass">
                 <p>No items found in {tabs.find(t => t.id === activeTab)?.label}</p>
               </div>
