@@ -33,6 +33,11 @@ import './App.css';
 
 function App() {
   const [currentView, setCurrentView] = React.useState('home');
+  const [bookedTrips, setBookedTrips] = React.useState([]);
+
+  const addBooking = (trip) => {
+    setBookedTrips(prev => [...prev, { ...trip, bookingId: Date.now() }]);
+  };
 
   const moods = [
     { name: 'Chill', emoji: '😌' },
@@ -594,9 +599,9 @@ function App() {
         ) : currentView === 'stayfood' ? (
           <StayFood />
         ) : currentView === 'stories' ? (
-          <Stories />
+          <Stories addBooking={addBooking} />
         ) : currentView === 'mytrips' ? (
-          <MyTrips />
+          <MyTrips bookedTrips={bookedTrips} />
         ) : (
           <Community />
         )}

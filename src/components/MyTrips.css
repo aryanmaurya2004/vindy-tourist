@@ -68,6 +68,9 @@
   font-size: 0.9rem;
   white-space: nowrap;
   transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 
 .tab-btn:hover {
@@ -110,12 +113,27 @@
   width: 140px;
   height: 100px;
   flex-shrink: 0;
+  position: relative;
 }
 
 .item-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.booking-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: #10b981;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .item-details {
@@ -157,11 +175,44 @@
   color: white;
 }
 
+.meta-date {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #10b981;
+}
+
+.booking-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.view-ticket-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-ticket-btn:hover {
+  background: white;
+  color: black;
+}
+
 .delete-btn {
   color: rgba(255, 255, 255, 0.3);
   padding: 0.75rem;
   border-radius: 0.75rem;
   transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .delete-btn:hover {
@@ -170,10 +221,24 @@
 }
 
 .empty-state {
-  padding: 4rem;
+  padding: 5rem 2rem;
   text-align: center;
   color: rgba(255, 255, 255, 0.4);
   border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.empty-icon {
+  margin-bottom: 1rem;
+  opacity: 0.2;
+}
+
+.empty-state h3 {
+  color: white;
+  font-size: 1.5rem;
 }
 
 @media (max-width: 768px) {
@@ -186,9 +251,16 @@
   }
   .item-details {
     padding: 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
   }
   .item-meta {
     flex-wrap: wrap;
     gap: 1rem;
+  }
+  .booking-actions {
+    width: 100%;
+    justify-content: space-between;
   }
 }
