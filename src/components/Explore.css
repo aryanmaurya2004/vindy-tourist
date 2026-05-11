@@ -94,7 +94,10 @@
 }
 
 .control-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .view-toggle {
@@ -120,6 +123,13 @@
 .toggle-btn.active {
   background: #3b82f6;
   color: white;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.toggle-btn:not(.active):hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: scale(1.05);
 }
 
 .explore-grid {
@@ -194,8 +204,10 @@
 }
 
 .card-wishlist:hover {
-  background: rgba(236, 72, 153, 0.9);
+  background: #ec4899;
   border-color: transparent;
+  transform: scale(1.2) rotate(10deg);
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
 }
 
 .card-rating {

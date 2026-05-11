@@ -81,7 +81,8 @@
 .tab-btn.active {
   background: #3b82f6;
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px);
 }
 
 .tab-count {
@@ -203,6 +204,8 @@
 .view-ticket-btn:hover {
   background: white;
   color: black;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
 .delete-btn {
@@ -216,8 +219,10 @@
 }
 
 .delete-btn:hover {
-  color: #ef4444;
-  background: rgba(239, 68, 68, 0.1);
+  color: white;
+  background: #ef4444;
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
 }
 
 .empty-state {

@@ -124,6 +124,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  transition: all 0.3s ease;
 }
 
 .story-info h3 {
@@ -155,6 +156,12 @@
   align-items: center;
   gap: 0.5rem;
   width: fit-content;
+  transition: all 0.3s ease;
+}
+
+.story-btn-link:hover {
+  color: #60a5fa;
+  transform: translateX(5px);
 }
 
 /* Story Detail View */
@@ -287,8 +294,9 @@
 }
 
 .story-action-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .story-action-btn.like:hover {
@@ -400,8 +408,8 @@
 
 .book-now-btn:hover {
   background: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
 }
 
 .booking-note {
@@ -432,7 +440,8 @@
 }
 
 .related-item:hover {
-  transform: translateX(5px);
+  transform: translateX(10px) scale(1.02);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .related-thumb {
