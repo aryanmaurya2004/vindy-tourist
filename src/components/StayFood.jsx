@@ -24,7 +24,7 @@ const StayFood = () => {
       type: 'Boutique Hotel',
       rating: 4.7,
       price: '$180/night',
-      image: 'https://images.unsplash.com/photo-1449156003053-93d25950d992?auto=format&fit=crop&q=80&w=800',
+      image: 'https://i.pinimg.com/736x/18/ab/10/18ab108cda5a65fefb05d24f7dc10b31.jpg',
       location: 'Norway',
       amenities: ['Mountain View', 'Fireplace', 'Sauna']
     },
@@ -64,7 +64,7 @@ const StayFood = () => {
     <div className="stayfood-page">
       <div className="container">
         <header className="page-header">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="page-title"
@@ -76,7 +76,7 @@ const StayFood = () => {
 
         <AnimatePresence>
           {booking && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}

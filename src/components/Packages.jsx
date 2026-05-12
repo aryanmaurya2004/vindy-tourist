@@ -50,7 +50,7 @@ const Packages = () => {
       duration: '6 Days / 5 Nights',
       price: '$1,899',
       rating: 4.7,
-      image: 'https://images.unsplash.com/photo-1540959733332-e946670b24b6?auto=format&fit=crop&q=80&w=800',
+      image: 'https://i.pinimg.com/736x/65/51/1d/65511da985fd43f58024dba754db9982.jpg',
       location: 'Shinjuku, Japan',
       description: 'Discover the perfect blend of ancient tradition and futuristic technology in the world\'s most vibrant metropolis.',
       highlights: ['Sushi Workshop', 'Robot Show', 'Harajuku Tour', 'Mt. Fuji Day Trip'],
@@ -58,6 +58,23 @@ const Packages = () => {
         { day: 1, title: 'Neon Nights', desc: 'Guided night tour of Shinjuku and Omoide Yokocho.' },
         { day: 2, title: 'Asakusa & Meiji', desc: 'Visit Tokyo\'s oldest temple and the peaceful Meiji Shrine.' },
         { day: 3, title: 'Fuji Excursion', desc: 'Day trip to Lake Kawaguchi for the best views of Mt. Fuji.' }
+      ]
+    },
+    {
+      id: 4,
+      title: 'Saudi Arabia sity',
+      category: 'Adventure',
+      duration: '9 Days / 9 Nights',
+      price: '$3,499',
+      rating: 4.8,
+      image: 'https://i.pinimg.com/1200x/88/17/85/88178559b1db1face79eced37d9bba1b.jpg',
+      location: 'saudi arabia sity',
+      description: 'A thrilling journey through the snow-capped peaks of the Swiss Alps. Perfect for adrenaline junkies and nature lovers alike.',
+      highlights: ['Ski Pass Included', 'Glacier Express', 'Mountain Hiking', 'Cheese Tasting'],
+      itinerary: [
+        { day: 1, title: 'Zurich to Zermatt', desc: 'Scenic train ride to the car-free village of Zermatt.' },
+        { day: 2, title: 'Matterhorn Views', desc: 'Cable car ride to Matterhorn Glacier Paradise for 360° views.' },
+        { day: 3, title: 'Mountain Biking', desc: 'Guided downhill biking through alpine meadows.' }
       ]
     }
   ];
