@@ -18,13 +18,11 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
-const Navbar = ({ setView, currentView }) => {
+const Navbar = ({ setView, currentView, language, setLanguage, t, theme, setTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(true);
   const [showLang, setShowLang] = useState(false);
   const [showCurrency, setShowCurrency] = useState(false);
-  const [language, setLanguage] = useState('EN');
   const [currency, setCurrency] = useState('USD');
   const langRef = useRef(null);
   const currencyRef = useRef(null);
@@ -51,13 +49,13 @@ const Navbar = ({ setView, currentView }) => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', icon: <Home size={18} />, href: '#', view: 'home' },
-    { name: 'Explore', icon: <Compass size={18} />, href: '#', view: 'explore' },
-    { name: 'AI Planner', icon: <Zap size={18} />, href: '#', view: 'planner' },
-    { name: 'Packages', icon: <Package size={18} />, href: '#', view: 'packages' },
-    { name: 'Stay & Food', icon: <Utensils size={18} />, href: '#', view: 'stayfood' },
-    { name: 'Stories', icon: <BookOpen size={18} />, href: '#', view: 'stories' },
-    { name: 'Community', icon: <Users size={18} />, href: '#', view: 'community' },
+    { name: t.home, icon: <Home size={18} />, href: '#', view: 'home' },
+    { name: t.explore, icon: <Compass size={18} />, href: '#', view: 'explore' },
+    { name: t.planner, icon: <Zap size={18} />, href: '#', view: 'planner' },
+    { name: t.packages, icon: <Package size={18} />, href: '#', view: 'packages' },
+    { name: t.stayfood, icon: <Utensils size={18} />, href: '#', view: 'stayfood' },
+    { name: t.stories, icon: <BookOpen size={18} />, href: '#', view: 'stories' },
+    { name: t.community, icon: <Users size={18} />, href: '#', view: 'community' },
   ];
 
   return (
@@ -157,8 +155,8 @@ const Navbar = ({ setView, currentView }) => {
               </div>
             </div>
 
-            <button className="theme-toggle" onClick={() => setIsDark(!isDark)}>
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            <button className="theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
             <button 
@@ -166,7 +164,7 @@ const Navbar = ({ setView, currentView }) => {
               onClick={() => setView('mytrips')}
             >
               <UserCircle size={20} />
-              <span>My Trips</span>
+              <span>{t.mytrips}</span>
             </button>
 
             <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
@@ -237,7 +235,7 @@ const Navbar = ({ setView, currentView }) => {
                 className={`mobile-action-btn ${currentView === 'mytrips' ? 'active' : ''}`}
                 onClick={() => { setView('mytrips'); setIsOpen(false); }}
               >
-                My Trips
+                {t.mytrips}
               </button>
             </div>
           </motion.div>

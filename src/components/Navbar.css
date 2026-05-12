@@ -17,8 +17,8 @@
   margin: 0 auto;
   border-radius: 3rem;
   padding: 0.5rem 1rem;
-  background: rgba(2, 6, 23, 0.95) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
   backdrop-filter: blur(20px);
 }
 
@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: white;
+  color: var(--text-color);
   font-weight: 700;
   font-size: 1.25rem;
 }
@@ -65,10 +65,11 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-color);
+  opacity: 0.8;
   font-size: 0.9rem;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .nav-link:hover,
@@ -148,8 +149,8 @@
   top: calc(100% + 1rem);
   right: 0;
   min-width: 140px;
-  background: rgba(15, 23, 42, 0.9) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: var(--section-bg) !important;
+  border: 1px solid var(--glass-border) !important;
   backdrop-filter: blur(12px);
   border-radius: 1rem;
   padding: 0.5rem;
@@ -164,7 +165,8 @@
   width: 100%;
   padding: 0.6rem 1rem;
   border-radius: 0.5rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-color);
+  opacity: 0.8;
   font-size: 0.85rem;
   font-weight: 500;
   text-align: left;
@@ -177,7 +179,7 @@
 }
 
 .theme-toggle {
-  color: white;
+  color: var(--text-color);
   padding: 0.4rem;
   transition: all 0.3s ease;
 }
