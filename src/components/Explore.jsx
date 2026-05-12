@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
-import { 
-  Search, 
-  MapPin, 
-  Filter, 
-  Grid, 
-  Map as MapIcon, 
-  Star, 
+import {
+  Search,
+  MapPin,
+  Filter,
+  Grid,
+  Map as MapIcon,
+  Star,
   Heart,
   ChevronRight,
   Sparkles
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import './Explore.css';
+
+// Fix for default Leaflet icon issue in React
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 
 const Explore = () => {
   const [view, setView] = useState('grid');
@@ -29,7 +40,8 @@ const Explore = () => {
       tags: ['Beach', 'Culture', 'Spiritual'],
       bestTime: 'Apr - Oct',
       type: 'Tropical',
-      status: 'Trending'
+      status: 'Trending',
+      coords: [-8.3405, 115.0920]
     },
     {
       id: 2,
@@ -42,7 +54,8 @@ const Explore = () => {
       tags: ['Culture', 'Spiritual', 'Nature'],
       bestTime: 'Mar - May, Oct - Nov',
       type: 'Temperate',
-      status: 'Trending'
+      status: 'Trending',
+      coords: [35.0116, 135.7681]
     },
     {
       id: 3,
@@ -55,7 +68,8 @@ const Explore = () => {
       tags: ['Beach', 'Romantic', 'Culture'],
       bestTime: 'Jun - Sep',
       type: 'Mediterranean',
-      status: ''
+      status: '',
+      coords: [36.3932, 25.4615]
     },
     {
       id: 4,
@@ -63,12 +77,13 @@ const Explore = () => {
       country: 'Chile/Argentina',
       rating: 4.9,
       price: '$1,500+',
-      image: 'https://images.unsplash.com/photo-1517700201646-136b334139e8?auto=format&fit=crop&q=80&w=800',
+      image: 'https://i.pinimg.com/736x/77/a4/e1/77a4e153eb5abe3e32e6377b4a1abc52.jpg',
       description: 'Stunning glaciers, mountains, and wildlife in the far south.',
       tags: ['Adventure', 'Nature', 'Hiking'],
       bestTime: 'Dec - Mar',
       type: 'Alpine',
-      status: 'Hidden Gem'
+      status: 'Hidden Gem',
+      coords: [-46.6033, -71.7291]
     },
     {
       id: 5,
@@ -81,7 +96,8 @@ const Explore = () => {
       tags: ['Culture', 'Heritage', 'Desert'],
       bestTime: 'Oct - Mar',
       type: 'Desert',
-      status: 'Trending'
+      status: 'Trending',
+      coords: [27.0238, 74.2179]
     },
     {
       id: 6,
@@ -94,7 +110,8 @@ const Explore = () => {
       tags: ['Adventure', 'Nature', 'Aurora'],
       bestTime: 'Sep - Mar (Aurora), Jun-Aug',
       type: 'Arctic',
-      status: 'Trending'
+      status: 'Trending',
+      coords: [64.9631, -19.0208]
     }
   ];
 
@@ -102,14 +119,14 @@ const Explore = () => {
     <div className="explore-page">
       <div className="explore-container">
         <header className="explore-header-section">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="explore-title"
           >
             Explore Destinations
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
@@ -121,9 +138,9 @@ const Explore = () => {
           <div className="explore-controls glass">
             <div className="search-bar-wrapper">
               <Search size={18} className="search-icon" />
-              <input 
-                type="text" 
-                placeholder="Search destinations..." 
+              <input
+                type="text"
+                placeholder="Search destinations..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -134,14 +151,14 @@ const Explore = () => {
                 <span>Filters</span>
               </button>
               <div className="view-toggle">
-                <button 
+                <button
                   className={`toggle-btn ${view === 'grid' ? 'active' : ''}`}
                   onClick={() => setView('grid')}
                 >
                   <Grid size={18} />
                   <span>Grid</span>
                 </button>
-                <button 
+                <button
                   className={`toggle-btn ${view === 'map' ? 'active' : ''}`}
                   onClick={() => setView('map')}
                 >
@@ -157,7 +174,7 @@ const Explore = () => {
           {view === 'grid' ? (
             <div className="explore-grid">
               {destinations.map((dest) => (
-                <motion.div 
+                <motion.div
                   key={dest.id}
                   layout
                   initial={{ opacity: 0, y: 20 }}
@@ -208,10 +225,30 @@ const Explore = () => {
               ))}
             </div>
           ) : (
-            <div className="map-placeholder glass">
-              <MapIcon size={64} />
-              <h3>Interactive Map coming soon</h3>
-              <p>Explore destinations through our spatial interface.</p>
+            <div className="map-view-container glass" style={{ minHeight: '600px', background: '#020617' }}>
+              <MapContainer
+                center={[20, 0]}
+                zoom={2}
+                scrollWheelZoom={true}
+                style={{ height: '600px', width: '100%', borderRadius: '1.5rem' }}
+              >
+                <TileLayer
+                  attribution='&copy; OpenStreetMap contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {destinations.map((dest) => (
+                  dest.coords && (
+                    <Marker key={dest.id} position={dest.coords}>
+                      <Popup>
+                        <div style={{ color: '#000' }}>
+                          <strong>{dest.name}</strong><br/>
+                          {dest.country}
+                        </div>
+                      </Popup>
+                    </Marker>
+                  )
+                ))}
+              </MapContainer>
             </div>
           )}
         </div>
