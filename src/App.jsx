@@ -308,7 +308,7 @@ const travelStories = [
 ];
 
 return (
-  <div className="app">
+  <div className="app" data-theme={theme}>
     <div className="main-bg-animation">
       <div className="bg-orb orb-1"></div>
       <div className="bg-orb orb-2"></div>
@@ -321,6 +321,8 @@ return (
       language={language}
       setLanguage={setLanguage}
       t={t.nav}
+      theme={theme}
+      setTheme={setTheme}
     />
 
     <main>
