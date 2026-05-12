@@ -61,10 +61,11 @@
 
 .hero-subtitle {
   font-size: clamp(1rem, 2vw, 1.25rem);
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
   max-width: 700px;
   margin-bottom: 3.5rem;
   line-height: 1.5;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Search Container */
@@ -255,7 +256,7 @@
 }
 
 .section-subtitle {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 1.1rem;
 }
 
@@ -391,11 +392,12 @@
 
 .dest-card {
   border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.03) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  background: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  backdrop-filter: blur(10px);
 }
 
 .dest-card:hover {
@@ -480,6 +482,23 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+}
+
+.dest-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 1rem;
+}
+
+.price-tag {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #3b82f6;
+  white-space: nowrap;
 }
 
 .ai-plan-section {
@@ -648,14 +667,15 @@
 
 /* Curated Packages Styles */
 .package-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1.5rem;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   height: 100%;
+  backdrop-filter: blur(10px);
 }
 
 .package-card:hover {
@@ -714,7 +734,7 @@
 
 .package-details p {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   margin-bottom: 1.5rem;
   display: -webkit-box;
@@ -751,6 +771,7 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .book-small-btn:hover {
@@ -1163,7 +1184,8 @@
   margin-bottom: 0.2rem;
 }
 
-.contact-text a, .contact-text span {
+.contact-text a,
+.contact-text span {
   color: white;
   font-size: 0.95rem;
   font-weight: 500;
