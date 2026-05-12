@@ -8,7 +8,11 @@ import {
   Star,
   Heart,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  X,
+  Calendar,
+  Clock,
+  ArrowRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -24,9 +28,24 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-const Explore = () => {
+const Explore = ({ addBooking }) => {
   const [view, setView] = useState('grid');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedDest, setSelectedDest] = useState(null);
+  const [isBooked, setIsBooked] = useState(null);
+
+  const handleBookNow = (dest) => {
+    const tripWithDate = {
+      ...dest,
+      date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
+    };
+    addBooking(tripWithDate);
+    setIsBooked(dest.id);
+    setTimeout(() => {
+      setIsBooked(null);
+      setSelectedDest(null);
+    }, 2000);
+  };
 
   const destinations = [
     {
@@ -39,7 +58,9 @@ const Explore = () => {
       description: 'Tropical paradise with temples, rice terraces, and surf.',
       tags: ['Beach', 'Culture', 'Spiritual'],
       bestTime: 'Apr - Oct',
+      duration: '7-10 Days',
       type: 'Tropical',
+      vibe: 'Relaxing',
       status: 'Trending',
       coords: [-8.3405, 115.0920]
     },
@@ -53,7 +74,9 @@ const Explore = () => {
       description: 'Ancient capital with temples, geisha, and cherry blossoms.',
       tags: ['Culture', 'Spiritual', 'Nature'],
       bestTime: 'Mar - May, Oct - Nov',
+      duration: '5-8 Days',
       type: 'Temperate',
+      vibe: 'Cultural',
       status: 'Trending',
       coords: [35.0116, 135.7681]
     },
@@ -67,7 +90,9 @@ const Explore = () => {
       description: 'Iconic white-and-blue island with legendary sunsets.',
       tags: ['Beach', 'Romantic', 'Culture'],
       bestTime: 'Jun - Sep',
+      duration: '4-6 Days',
       type: 'Mediterranean',
+      vibe: 'Romantic',
       status: '',
       coords: [36.3932, 25.4615]
     },
@@ -81,7 +106,9 @@ const Explore = () => {
       description: 'Stunning glaciers, mountains, and wildlife in the far south.',
       tags: ['Adventure', 'Nature', 'Hiking'],
       bestTime: 'Dec - Mar',
+      duration: '10-14 Days',
       type: 'Alpine',
+      vibe: 'Adventurous',
       status: 'Hidden Gem',
       coords: [-46.6033, -71.7291]
     },
@@ -95,7 +122,9 @@ const Explore = () => {
       description: 'Royal heritage, desert forts, and vibrant colors.',
       tags: ['Culture', 'Heritage', 'Desert'],
       bestTime: 'Oct - Mar',
+      duration: '6-9 Days',
       type: 'Desert',
+      vibe: 'Majestic',
       status: 'Trending',
       coords: [27.0238, 74.2179]
     },
@@ -108,8 +137,10 @@ const Explore = () => {
       image: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&q=80&w=800',
       description: 'Land of fire and ice, aurora borealis, and volcanic landscapes.',
       tags: ['Adventure', 'Nature', 'Aurora'],
-      bestTime: 'Sep - Mar (Aurora), Jun-Aug',
+      bestTime: 'Sep - Mar',
+      duration: '7-12 Days',
       type: 'Arctic',
+      vibe: 'Mystical',
       status: 'Trending',
       coords: [64.9631, -19.0208]
     }
@@ -216,9 +247,20 @@ const Explore = () => {
                       ))}
                     </div>
                     <div className="card-footer">
-                      <span className="card-meta">
-                        {dest.type} • Best: {dest.bestTime}
-                      </span>
+                      <div className="footer-top">
+                        <span className="card-meta">
+                          {dest.type} • Best: {dest.bestTime}
+                        </span>
+                      </div>
+                      <div className="footer-actions">
+                        <button 
+                          className="visit-btn"
+                          onClick={() => setSelectedDest(dest)}
+                        >
+                          <span>Visit</span>
+                          <ChevronRight size={16} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -253,6 +295,99 @@ const Explore = () => {
           )}
         </div>
       </div>
+
+      {/* Destination Detail Modal */}
+      {selectedDest && (
+        <div className="modal-overlay" onClick={() => setSelectedDest(null)}>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="detail-modal glass"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="modal-close" onClick={() => setSelectedDest(null)}>
+              <X size={20} />
+            </button>
+
+            <div className="modal-content">
+              <div className="modal-image">
+                <img src={selectedDest.image} alt={selectedDest.name} />
+                <div className="modal-image-overlay">
+                  <div className="modal-badge">{selectedDest.status || 'Featured'}</div>
+                </div>
+              </div>
+
+              <div className="modal-info">
+                <div className="modal-header">
+                  <div>
+                    <h2>{selectedDest.name}</h2>
+                    <p className="modal-location">
+                      <MapPin size={16} />
+                      {selectedDest.country}
+                    </p>
+                  </div>
+                  <div className="modal-rating">
+                    <Star size={18} fill="#eab308" color="#eab308" />
+                    <span>{selectedDest.rating}</span>
+                  </div>
+                </div>
+
+                <p className="modal-description">{selectedDest.description}</p>
+
+                <div className="modal-details-grid">
+                  <div className="detail-item">
+                    <Calendar size={18} />
+                    <div>
+                      <label>Best Time</label>
+                      <span>{selectedDest.bestTime}</span>
+                    </div>
+                  </div>
+                  <div className="detail-item">
+                    <Clock size={18} />
+                    <div>
+                      <label>Duration</label>
+                      <span>{selectedDest.duration}</span>
+                    </div>
+                  </div>
+                  <div className="detail-item">
+                    <Sparkles size={18} />
+                    <div>
+                      <label>Vibe</label>
+                      <span>{selectedDest.vibe}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="modal-footer">
+                  <div className="modal-price">
+                    <label>Starting from</label>
+                    <span>{selectedDest.price}</span>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`modal-book-btn ${isBooked === selectedDest.id ? 'booked' : ''}`}
+                    onClick={() => handleBookNow(selectedDest)}
+                    disabled={isBooked === selectedDest.id}
+                  >
+                    {isBooked === selectedDest.id ? (
+                      <>
+                        <Sparkles size={18} />
+                        <span>Saved to My Trips</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Book This Trip</span>
+                        <ArrowRight size={18} />
+                      </>
+                    )}
+                  </motion.button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

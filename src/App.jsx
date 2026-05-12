@@ -591,7 +591,7 @@ function App() {
             </section>
           </>
         ) : currentView === 'explore' ? (
-          <Explore />
+          <Explore addBooking={addBooking} />
         ) : currentView === 'planner' ? (
           <AIPlanner />
         ) : currentView === 'packages' ? (
