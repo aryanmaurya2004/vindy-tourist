@@ -143,8 +143,110 @@ const Explore = ({ addBooking }) => {
       vibe: 'Mystical',
       status: 'Trending',
       coords: [64.9631, -19.0208]
+    },
+    {
+      id: 7,
+      name: 'Paris',
+      country: 'France',
+      rating: 4.7,
+      price: '$900+',
+      image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&q=80&w=800',
+      description: 'The city of light, romance, and world-class art.',
+      tags: ['City', 'Culture', 'Romantic'],
+      bestTime: 'Apr - Jun, Sep - Oct',
+      duration: '4-7 Days',
+      type: 'Metropolitan',
+      vibe: 'Elegant',
+      status: 'Classic',
+      coords: [48.8566, 2.3522]
+    },
+    {
+      id: 8,
+      name: 'Swiss Alps',
+      country: 'Switzerland',
+      rating: 4.9,
+      price: '$1,500+',
+      image: 'https://images.unsplash.com/photo-1531310197839-ccf54634509e?auto=format&fit=crop&q=80&w=800',
+      description: 'Pristine mountains, luxury ski resorts, and crystal lakes.',
+      tags: ['Nature', 'Luxury', 'Adventure'],
+      bestTime: 'Dec - Mar, Jun - Aug',
+      duration: '6-10 Days',
+      type: 'Alpine',
+      vibe: 'Serene',
+      status: 'Premium',
+      coords: [46.8182, 8.2275]
+    },
+    {
+      id: 9,
+      name: 'New York',
+      country: 'USA',
+      rating: 4.6,
+      price: '$1,200+',
+      image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&q=80&w=800',
+      description: 'The city that never sleeps, icon of culture and food.',
+      tags: ['City', 'Food', 'Culture'],
+      bestTime: 'Apr - Jun, Sep - Nov',
+      duration: '5-9 Days',
+      type: 'Metropolitan',
+      vibe: 'Energetic',
+      status: 'Trending',
+      coords: [40.7128, -74.0060]
+    },
+    {
+      id: 10,
+      name: 'Machu Picchu',
+      country: 'Peru',
+      rating: 4.9,
+      price: '$800+',
+      image: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&q=80&w=800',
+      description: 'Ancient Incan citadel high in the Andes mountains.',
+      tags: ['History', 'Adventure', 'Culture'],
+      bestTime: 'May - Oct',
+      duration: '5-10 Days',
+      type: 'Highland',
+      vibe: 'Ancient',
+      status: 'Wonder',
+      coords: [-13.1631, -72.5450]
+    },
+    {
+      id: 11,
+      name: 'Dubai',
+      country: 'UAE',
+      rating: 4.7,
+      price: '$1,000+',
+      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800',
+      description: 'Ultramodern architecture, luxury shopping, and desert life.',
+      tags: ['Luxury', 'City', 'Desert'],
+      bestTime: 'Nov - Mar',
+      duration: '4-7 Days',
+      type: 'Modern',
+      vibe: 'Luxurious',
+      status: 'Popular',
+      coords: [25.2048, 55.2708]
+    },
+    {
+      id: 12,
+      name: 'Great Barrier Reef',
+      country: 'Australia',
+      rating: 4.8,
+      price: '$1,500+',
+      image: 'https://images.unsplash.com/photo-1502759683299-cdcc69741a7f?auto=format&fit=crop&q=80&w=800',
+      description: 'The world\'s largest coral reef system, paradise for divers.',
+      tags: ['Nature', 'Beach', 'Adventure'],
+      bestTime: 'Jun - Oct',
+      duration: '7-12 Days',
+      type: 'Marine',
+      vibe: 'Vibrant',
+      status: 'Ecological',
+      coords: [-18.2871, 147.6992]
     }
   ];
+
+  const filteredDestinations = destinations.filter(dest => 
+    dest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    dest.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    dest.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
 
   return (
     <div className="explore-page">
@@ -202,9 +304,22 @@ const Explore = ({ addBooking }) => {
         </header>
 
         <div className="destinations-layout">
-          {view === 'grid' ? (
+          {filteredDestinations.length === 0 ? (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="empty-search-state glass"
+            >
+              <Search size={64} />
+              <h2>No destinations found</h2>
+              <p>We couldn't find anything matching "{searchQuery}". Try a different city, country, or vibe!</p>
+              <button className="reset-search-btn" onClick={() => setSearchQuery('')}>
+                Clear Search
+              </button>
+            </motion.div>
+          ) : view === 'grid' ? (
             <div className="explore-grid">
-              {destinations.map((dest) => (
+              {filteredDestinations.map((dest) => (
                 <motion.div
                   key={dest.id}
                   layout
@@ -278,7 +393,7 @@ const Explore = ({ addBooking }) => {
                   attribution='&copy; OpenStreetMap contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {destinations.map((dest) => (
+                {filteredDestinations.map((dest) => (
                   dest.coords && (
                     <Marker key={dest.id} position={dest.coords}>
                       <Popup>
