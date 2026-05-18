@@ -27,7 +27,9 @@ import {
   Send,
   Mail,
   Phone,
-  Globe
+  Globe,
+  Calendar,
+  Clock
 } from 'lucide-react';
 import './App.css';
 import './components/StyleModal.css';
@@ -42,6 +44,8 @@ function App() {
   const [language, setLanguage] = React.useState('EN');
   const [activeMood, setActiveMood] = React.useState('Chill');
   const [selectedStyle, setSelectedStyle] = React.useState(null);
+  const [selectedHotDest, setSelectedHotDest] = React.useState(null);
+  const [isHotBooked, setIsHotBooked] = React.useState(null);
   const [theme, setTheme] = React.useState('dark');
 
   const translations = {
@@ -201,7 +205,12 @@ function App() {
       rating: 4.8,
       price: '$500 - $2,000',
       image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=600',
-      trending: true
+      trending: true,
+      description: 'A tropical paradise known for its volcanic mountains, iconic rice paddies, beaches, coral reefs, and vibrant cultural landmarks.',
+      bestTime: 'Apr - Oct',
+      duration: '7 Days',
+      vibe: 'Tropical & Relaxing',
+      tags: ['Beach', 'Culture', 'Spiritual']
     },
     {
       id: 2,
@@ -210,7 +219,12 @@ function App() {
       rating: 4.9,
       price: '$800 - $3,000',
       image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=600',
-      trending: true
+      trending: true,
+      description: 'Japan\'s historical heartland, famous for its thousands of classical Buddhist temples, gardens, imperial palaces, Shinto shrines, and traditional wooden houses.',
+      bestTime: 'Mar - May',
+      duration: '6 Days',
+      vibe: 'Ancient & Peaceful',
+      tags: ['Culture', 'Spiritual', 'Nature']
     },
     {
       id: 3,
@@ -219,7 +233,12 @@ function App() {
       rating: 4.6,
       price: '$300 - $1,500',
       image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&q=80&w=600',
-      trending: true
+      trending: true,
+      description: 'The Land of Kings, featuring majestic forts, royal palaces, vibrant festivals, and the golden sands of the Thar desert.',
+      bestTime: 'Oct - Mar',
+      duration: '8 Days',
+      vibe: 'Royal & Majestic',
+      tags: ['Culture', 'Heritage', 'Desert']
     },
     {
       id: 4,
@@ -228,7 +247,12 @@ function App() {
       rating: 4.8,
       price: '$2,000 - $6,000',
       image: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&q=80&w=600',
-      trending: true
+      trending: true,
+      description: 'A dramatic Nordic island nation with a landscape defined by active volcanoes, geysers, hot springs, black sand beaches, and epic glaciers.',
+      bestTime: 'Sep - Mar',
+      duration: '9 Days',
+      vibe: 'Mystical & Adventurous',
+      tags: ['Adventure', 'Nature', 'Aurora']
     }
   ];
 
@@ -494,6 +518,116 @@ function App() {
                     </motion.div>
                   </div>
                 )}
+
+                {/* Hot Destination Detail Modal */}
+                {selectedHotDest && (
+                  <div className="modal-overlay" onClick={() => setSelectedHotDest(null)}>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      className="detail-modal glass"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button className="modal-close" onClick={() => setSelectedHotDest(null)}>
+                        <Zap size={20} style={{ transform: 'rotate(45deg)' }} />
+                      </button>
+
+                      <div className="modal-content">
+                        <div className="modal-image">
+                          <img src={selectedHotDest.image} alt={selectedHotDest.name} />
+                          <div className="modal-image-overlay">
+                            <div className="modal-badge">Hot Destination</div>
+                          </div>
+                        </div>
+
+                        <div className="modal-info">
+                          <div className="modal-header">
+                            <div>
+                              <h2>{selectedHotDest.name}</h2>
+                              <p className="modal-location">
+                                <MapPin size={16} />
+                                {selectedHotDest.country}
+                              </p>
+                            </div>
+                            <div className="modal-rating">
+                              <Star size={18} fill="#eab308" color="#eab308" />
+                              <span>{selectedHotDest.rating}</span>
+                            </div>
+                          </div>
+
+                          <p className="modal-description">{selectedHotDest.description}</p>
+
+                          <div className="modal-details-grid">
+                            <div className="detail-item">
+                              <Calendar size={18} />
+                              <div>
+                                <label>Best Time</label>
+                                <span>{selectedHotDest.bestTime}</span>
+                              </div>
+                            </div>
+                            <div className="detail-item">
+                              <Clock size={18} />
+                              <div>
+                                <label>Duration</label>
+                                <span>{selectedHotDest.duration}</span>
+                              </div>
+                            </div>
+                            <div className="detail-item">
+                              <Sparkles size={18} />
+                              <div>
+                                <label>Vibe</label>
+                                <span>{selectedHotDest.vibe}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="modal-footer">
+                            <div className="modal-price">
+                              <label>Starting from</label>
+                              <span>{selectedHotDest.price}</span>
+                            </div>
+                            <motion.button
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                              className={`modal-book-btn ${isHotBooked === selectedHotDest.id ? 'booked' : ''}`}
+                              onClick={() => {
+                                const tripWithDate = {
+                                  bookingId: Date.now(),
+                                  id: selectedHotDest.id,
+                                  name: selectedHotDest.name,
+                                  country: selectedHotDest.country,
+                                  rating: selectedHotDest.rating,
+                                  price: selectedHotDest.price,
+                                  image: selectedHotDest.image,
+                                  date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
+                                };
+                                addBooking(tripWithDate);
+                                setIsHotBooked(selectedHotDest.id);
+                                setTimeout(() => {
+                                  setIsHotBooked(null);
+                                  setSelectedHotDest(null);
+                                }, 2000);
+                              }}
+                              disabled={isHotBooked === selectedHotDest.id}
+                            >
+                              {isHotBooked === selectedHotDest.id ? (
+                                <>
+                                  <Sparkles size={18} />
+                                  <span>Saved to My Trips</span>
+                                </>
+                              ) : (
+                                <>
+                                  <span>Book This Trip</span>
+                                  <ArrowRight size={18} />
+                                </>
+                              )}
+                            </motion.button>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
               </div>
             </section>
 
@@ -520,12 +654,13 @@ function App() {
                       viewport={{ once: true }}
                       whileHover={{ y: -10 }}
                       className="dest-card"
+                      onClick={() => setSelectedHotDest(dest)}
                     >
                       <div className="dest-image-wrapper">
                         <img src={dest.image} alt={dest.name} className="dest-img" />
                         <div className="dest-overlay">
                           {dest.trending && <span className="trending-tag">Trending</span>}
-                          <button className="wishlist-btn">
+                          <button className="wishlist-btn" onClick={(e) => e.stopPropagation()}>
                             <Heart size={18} />
                           </button>
                         </div>
@@ -544,7 +679,7 @@ function App() {
                         </p>
                         <div className="dest-footer">
                           <span className="price-tag">{dest.price}</span>
-                          <button className="book-small-btn">Book Now</button>
+                          <button className="book-small-btn" onClick={(e) => { e.stopPropagation(); setSelectedHotDest(dest); }}>Book Now</button>
                         </div>
                       </div>
                     </motion.div>
