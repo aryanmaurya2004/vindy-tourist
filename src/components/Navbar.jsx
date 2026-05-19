@@ -66,7 +66,7 @@ const Navbar = ({ setView, currentView, language, setLanguage, t, theme, setThem
             <div className="logo-circle">
               <Compass size={20} />
             </div>
-            <span className="logo-text">Wanderlust</span>
+            <span className="logo-text">Vindy Tourist</span>
           </div>
 
           {/* Desktop Nav */}

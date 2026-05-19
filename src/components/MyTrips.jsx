@@ -64,7 +64,7 @@ const MyTrips = ({ bookedTrips = [] }) => {
             </div>
             <div className="user-text">
               <h1>Travel Explorer</h1>
-              <p>explorer@wanderlust.travel</p>
+              <p>explorer@vindytourist.com</p>
             </div>
           </div>
         </header>

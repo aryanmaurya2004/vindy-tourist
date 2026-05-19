@@ -964,7 +964,7 @@ function App() {
             <div className="footer-brand">
               <div className="footer-logo">
                 <Globe size={24} />
-                <span>Wanderlust</span>
+                <span>Vindy Tourist</span>
               </div>
               <p className="footer-desc">
                 Don't just visit, experience the world. We craft journeys that transform the way you see the planet.
@@ -1007,7 +1007,7 @@ function App() {
                   </div>
                   <div className="contact-text">
                     <label>Email Us</label>
-                    <a href="mailto:hello@wanderlust.travel">hello@wanderlust.travel</a>
+                    <a href="mailto:hello@vindytourist.com">hello@vindytourist.com</a>
                   </div>
                 </div>
                 <div className="contact-item">
@@ -1033,7 +1033,7 @@ function App() {
           </div>
 
           <div className="footer-bottom">
-            <p>&copy; 2026 Wanderlust. All rights reserved.</p>
+            <p>&copy; 2026 Vindy Tourist. All rights reserved.</p>
             <div className="footer-bottom-links">
               <a href="#">Privacy</a>
               <a href="#">Terms</a>
